@@ -4,8 +4,11 @@ from . import views
 
 app_name = 'faculty_profile'
 urlpatterns = [
-    # profile page(s)
+    # profile index (placeholder, should be deleted in the future)
     path('', views.index, name='index'),
-    path('<int:profile_id>/', views.profile, name='profile'),
-    path('<int:profile_id>/edit/', views.edit, name='edit')
+    path('edit/', views.edit, name='edit')
+
+    # will the login app and corresponding session database provide a faculty's profile_id?
+    # path('<int:profile_id>', views.index, name='index'),
+    # path('<int:profile_id>/edit/', views.edit, name='edit')
 ]
