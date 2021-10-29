@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'homepage.apps.HomepageConfig',
     'faculty_profile.apps.FacultyProfileConfig',
     'django.contrib.admin',
     'django.contrib.auth',
