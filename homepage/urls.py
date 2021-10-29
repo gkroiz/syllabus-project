@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     # routes from home page
-    path('login/', views.index, name='login'),
-    path('search/', views.index, name='search'),
+    path('login/', views.login, name='login'),
+    path('search/', views.search, name='search'),
 ]
