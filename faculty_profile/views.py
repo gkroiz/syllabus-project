@@ -3,4 +3,8 @@ from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("Hello welcome to the Profile Page")
+    return render(request, 'faculty_profile/index.html', context={})
+
+
+def edit(request):
+    return render(request, 'faculty_profile/edit.html', context={})
