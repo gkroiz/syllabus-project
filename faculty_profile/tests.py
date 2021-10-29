@@ -8,7 +8,7 @@ class ProfileTestCase(TestCase):
         Profile.objects.create(ID="123VT45", name="John Benson", email="jbenson1@umbc.edu", location="ILSB 420",
                                phone="+1 (123) 456-7891", hours="10-11 AM M/W")
 
-    def test_animals_can_speak(self):
+    def test_database_object_was_created(self):
         benson = Profile.objects.get(ID="123VT45")
         self.assertEqual(benson.ID, "123VT45")
         self.assertEqual(benson.name, "John Benson")
