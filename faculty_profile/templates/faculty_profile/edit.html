@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<body>
+
+<div class="container">
+    <form action="{% url 'faculty_profile:index' %}" method="post">
+        {% csrf_token %}
+        Enter an ID: <br/>
+        <input type="text" name="ID"><br/>
+
+        Enter a Name:<br/>
+        <input type="text" name="name"><br/>
+
+        Enter an Email:<br/>
+        <input type="text" name="email"><br/>
+
+        Enter an Office Location:<br/>
+        <input type="text" name="location"><br/>
+
+        Enter an Office Phone Number:<br/>
+        <input type="text" name="phone"><br/>
+
+        Enter Office Hours:<br/>
+        <input type="text" name="hours"><br/>
+        <input type="submit">
+    </form>
+</div>
+
+</body>
+</html>
