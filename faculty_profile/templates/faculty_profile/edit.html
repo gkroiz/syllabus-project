@@ -10,7 +10,7 @@
 <body>
 
 <div class="container">
-    <form action="{% url 'faculty_profile:index' %}" method="post">
+    <form action="{% url 'faculty_profile:add' %}" method="post">
         {% csrf_token %}
         Enter an ID: <br/>
         <input type="text" name="ID"><br/>
