@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UMBC Schedule Synthetizer</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <form class="site-form" action="{% url 'login' %}" method="post">
+        {%csrf_token %}
+        <p>email:{{ form.username }}</p>
+        <p>Password:{{ form.password }}</p>
+        <input type="submit"  value="login">
+        <a href="{% url 'signup' %}">
+            <input type="button" value="Sign up" />
+        </a>
+        <a href="{% url 'signup' %}">
+            <input type="button" value="Forgot Password"ß />
+        </a>
+    </form>
+
+
+
+</body>
+</html>

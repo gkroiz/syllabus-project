@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>UMBC Schedule Synthetizer</title>
+    <title>Sign up</title>
 </head>
 
 <body>
     <h1>Sign up</h1>
-    <form class="site-form" action="/login/signup/" method="post">
+    <form class="site-form" action="{%url 'signup' %}" method="post">
         {%csrf_token %}
-        {{form}}
+        {{ form }}
         <input type="submit" value="Sign up">
     </form>
 
