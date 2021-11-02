@@ -22,11 +22,9 @@ def add(request):
     # if ID from form POST is the same as an ID that is already in the database, the existing entry will be modified
     # if ID is new, a new entry will be created
     profile_id = request.POST['ID']
-    name = request.POST['name']
-    email = request.POST['email']
     location = request.POST['location']
     phone = request.POST['phone']
     hours = request.POST['hours']
-    profile_obj = Profile(ID=profile_id, name=name, email=email, location=location, phone=phone, hours=hours)
+    profile_obj = Profile(ID=profile_id, location=location, phone=phone, hours=hours)
     profile_obj.save()
     return HttpResponseRedirect(reverse('faculty_profile:index'))
