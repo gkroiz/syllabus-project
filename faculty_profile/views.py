@@ -14,6 +14,10 @@ def edit(request):
     return render(request, 'faculty_profile/edit.html', context={})
 
 
+def syllabus(request):
+    return HttpResponse('View will be connected to the syllabus app later')
+
+
 def add(request):
     # if ID from form POST is the same as an ID that is already in the database, the existing entry will be modified
     # if ID is new, a new entry will be created
