@@ -1,7 +1,15 @@
 import self as self
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+
+
+class UserAdminCreationForm(UserCreationForm):
+
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'first_name', 'last_name']
 
 
 class CreateUserForm(UserCreationForm):
@@ -9,11 +17,5 @@ class CreateUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['email','first_name', 'last_name', 'password1','password2', ]
+        fields = ['email', 'first_name', 'last_name', 'password1', 'password2', ]
 
-
-class LoginUser(AuthenticationForm):
-    #email = forms.EmailInput(label=("Email address"),widget=forms.EmailInput(attrs={'autofocus': True}))
-    username = UsernameField(
-        label='Email',
-        widget=forms.TextInput(attrs={'autofocus': True}))

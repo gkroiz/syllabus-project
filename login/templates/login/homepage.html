@@ -6,14 +6,16 @@
 </head>
 
 <body>
-    <h1>WELCOME SCREEN GOES HERE</h1>
-
+    % block content %}
     {% if user.is_authenticated %}
-        Account: {{ user.email }}
+        Hi {{ user.email }}!
         <p><a href="{% url 'logout' %}">Log Out</a></p>
     {% else %}
         <p>You are not logged in</p>
         <a href="{% url 'login' %}">Log In</a>
     {% endif %}
+
+
+
 </body>
 </html>
