@@ -8,6 +8,12 @@ from django.db import models
 class User(models.Model):
     user_id = models.CharField(max_length=200, primary_key=True)
     role = models.CharField(max_length=15)
+    password = models.CharField(max_length=50)
+    email = models.EmailField()
+    date_created = models.DateTimeField('date created')
+    def __str__(self):
+        return self.user_id + ": " + self.role
+
 
 
 class Syllabi(models.Model):
@@ -17,12 +23,15 @@ class Syllabi(models.Model):
     #semester_year = 2021
     semester_year = models.IntegerField()
     #class_dept = CMSC
-    class_dept = models.CharField(max_length=6)
+    class_dept = models.CharField(max_length=4)
     #class_code = 447
     class_code = models.IntegerField()
     #class_id = CMSC447
     class_id = models.CharField(max_length=200, primary_key=True)
     professor_name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.class_id
 
 
 class Textbook(models.Model):
