@@ -29,3 +29,7 @@ class ViewTests(TestCase):
     def test_edit_view(self):
         response = self.client.get('/profile/edit/')
         self.assertEqual(response.status_code, 200)
+
+    def test_syllabus_view(self):
+        response = self.client.get('/profile/syllabus/')
+        self.assertEqual(response.status_code, 200)
