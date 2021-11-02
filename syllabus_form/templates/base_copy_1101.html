@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!doctype html>{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% comment %} import HTMX {% endcomment %}
+<script src="https://unpkg.com/htmx.org@1.6.0"></script>
+</head>
+<body>
+<div style="width: 100%;">
+        <div style="width: 50%; height: 100px; float: left; background: green;"> 
+            <form id="empty-layer-uploader" method="post" enctype="multipart/form-data" action=".">
+                {%csrf_token %}
+                {% for field in form %}
+                <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} <br/>
+                {{ field }}
+                </div>
+                {% endfor %}
+                    <div id="form_empty_layer">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        {{ form.errors }}
+                        {{ form.non_field_errors }}
+                        {% if errormsgs %}
+                        {% for value in errormsgs %}
+                            </p>  {{ value }} </p>
+                        {% endfor %}
+                        {% endif %}
+                        {% comment %} {% for error in form_empty_layer.non_field_errors %} {% endcomment %}
+                        {% comment %} {{ error }} </br> {% endcomment %}
+                        {% comment %} {% endfor %} {% endcomment %}
+                        {% comment %} </br> {% endcomment %}
+                        {% comment %} {% for field in form_empty_layer.visible_fields %} {% endcomment %}
+                        {% comment %} {{ field }} </br> {% endcomment %}
+                        {% comment %} {% endfor %} {% endcomment %}
+                    </div>
+                    </br>
+                    {% comment %} <button type="button" id="add-another">add another</button> </br> </br> {% endcomment %}
+                    <button type="submit" class="btn btn-success btn-sm" name="update">Save</button>   
+                    <button type="submit" class="btn btn-success btn-sm" name="submit">Submit</button>   
+                    </br>
+                    <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add New Box</button>
+                    {% comment %} <input type="text", name="new"> {% endcomment %}
+                    <button type="submit"class="btn btn-success btn-sm" name="remove" id="remove">Remove Box</button> </br> 
+
+
+            </form>
+        </div>
+        <div style="margin-left: 50%; height: 100px; background: blue;"> 
+            {% comment %} <p align="right"> {% endcomment %}
+            <iframe src='https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf' width="100%" height="100%">
+            </iframe>
+            {% comment %} </p> {% endcomment %}
+        </div>
+    </div>
+</body>
+<body>
+    {% comment %} <form method="post" action='.' hx-post='.'>
+    {%csrf_token %}
+    {% for field in form %}
+    <div class="fieldWrapper">
+    {{ field.errors }}
+    {{ field.label_tag }} <br/>
+    {{ field }}
+    </div>
+    {% endfor %}
+    <button id="add-another">add another</button>
+    <input type="submit" />
+    <button type="submit" class="btn btn-success btn-sm">Update</button>   
+    </form> {% endcomment %}
+    <form id="empty-layer-uploader" method="post" enctype="multipart/form-data" action=".">
+        {%csrf_token %}
+        {% for field in form %}
+        <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }} <br/>
+        {{ field }}
+        </div>
+        {% endfor %}
+            <div id="form_empty_layer">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                {{ form.errors }}
+                {{ form.non_field_errors }}
+                {% if errormsgs %}
+                {% for value in errormsgs %}
+                    </p>  {{ value }} </p>
+                {% endfor %}
+                {% endif %}
+                {% comment %} {% for error in form_empty_layer.non_field_errors %} {% endcomment %}
+                {% comment %} {{ error }} </br> {% endcomment %}
+                {% comment %} {% endfor %} {% endcomment %}
+                {% comment %} </br> {% endcomment %}
+                {% comment %} {% for field in form_empty_layer.visible_fields %} {% endcomment %}
+                {% comment %} {{ field }} </br> {% endcomment %}
+                {% comment %} {% endfor %} {% endcomment %}
+            </div>
+            </br>
+            {% comment %} <button type="button" id="add-another">add another</button> </br> </br> {% endcomment %}
+            <button type="submit" class="btn btn-success btn-sm" name="update">Save</button>   
+            <button type="submit" class="btn btn-success btn-sm" name="submit">Submit</button>   
+            </br>
+            <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add New Box</button>
+            {% comment %} <input type="text", name="new"> {% endcomment %}
+            <button type="submit"class="btn btn-success btn-sm" name="remove" id="remove">Remove Box</button> </br> 
+
+
+    </form>
+    {% comment %} <embed src="/templates/syllabus.pdf" width="800px" height="2100px" /> {% endcomment %}
+    {% comment %} <embed src="../syllabus.pdf" type="application/pdf" width="100%" height="600px" /> {% endcomment %}
+    {% comment %} <iframe src="syllabus.pdf" style="width: 100%;height: 100%;border: none;"></iframe> {% endcomment %}
+    {% comment %} <div>
+      <object
+        data="/Users/gersonkroiz/CMSC_447/syllabus-project/syllabus_form/syllabus.pdf"
+        type="application/pdf"
+        width="600"
+        height="700"
+      >
+
+        <iframe
+          src="/Users/gersonkroiz/CMSC_447/syllabus-project/syllabus_form/syllabus.pdf"
+          width="600"
+          height="700"
+        >
+        <p>This browser does not support PDF!</p>
+        </iframe>
+
+      </object>
+    </div> {% endcomment %}
+
+{% comment %} <body>
+    <object data="/Users/gersonkroiz/CMSC_447/syllabus-project/syllabus_form/syllabus.pdf" type="application/pdf">
+        <div>No online PDF viewer installed</div>
+    </object>
+</body> {% endcomment %}
+
+    <script>
+    let form_count = Number($("[name=extra_field_count]").val());
+    // get extra form count so we know what index to use for the next item.
+
+    $("#add").click(function() {
+        form_count ++;
+
+        let element = $('<input type="text"/>');
+        element.attr('name', 'extra_field_' + form_count);
+        $("#forms").append(element);
+        // build element and append it to our forms container
+
+        $("[name=extra_field_count]").val(form_count);
+        // increment form count so our view knows to populate 
+        // that many fields for validation
+    })
+    $("#remove").click(function() {
+            form_count --;
+
+            let element = $('<input type="text"/>');
+            element.attr('name', 'extra_field_' + form_count);
+            $("#forms").remove(element);
+            // build element and append it to our forms container
+
+            $("[name=extra_field_count]").val(form_count);
+            // increment form count so our view knows to populate 
+            // that many fields for validation
+        })
+    </script>
+
+    {% comment %} <script>
+        let form_count = Number($("[name=extra_field_count]").val())-1;
+        // get extra form count so we know what index to use for the next item.
+
+        $("#remove").click(function() {
+            form_count --;
+
+            let element = $('<input type="text"/>');
+            element.attr('name', 'extra_field_' + form_count);
+            $("#forms").remove(element);
+            // build element and append it to our forms container
+
+            $("[name=extra_field_count]").val(form_count);
+            // increment form count so our view knows to populate 
+            // that many fields for validation
+        })
+    </script> {% endcomment %}
+{% comment %} <script>
+// check how many times elements with this name attribute exist: extra_field_*
+form_count = $('input[name*="extra_field_*"]').length;
+
+// when the button 'add another' is clicked then create a new input element
+$(document.body).on("click", "#add-another",function(e) {
+  new_attribute = $('<input type="text"/>');
+  // add a name attribute with a corresponding number (form_count)
+  new_attribute.attr('body', 'extra_field_' + form_count);
+  // append the new element in your html
+  $("#form_empty_layer").append(new_attribute);
+  $("<br/>")
+  // increment the form_count variable
+  form_count ++;
+  // save the form_count to another input element (you can set this to invisible. This is what you will pass to the form in order to create the django form fields
+  $("[name=total_input_fields]").val(form_count);
+
+})
+</script> {% endcomment %}
+
+{% comment %} <script>
+// check how many times elements with this name attribute exist: extra_field_*
+form_count = $('input[name*="extra_field_*"]').length;
+
+// when the button 'add another' is clicked then create a new input element
+$(document.body).on("click", "#add-new-box",function(e) {
+  new_attribute = $('<input type="text"/>');
+  // add a name attribute with a corresponding number (form_count)
+  new_attribute.attr('name', 'extra_field_' + form_count);
+  // append the new element in your html
+  $("#form_empty_layer").append(new_attribute);
+  document.write("<br>");
+  // increment the form_count variable
+  form_count ++;
+  // save the form_count to another input element (you can set this to invisible. This is what you will pass to the form in order to create the django form fields
+  $("[name=total_input_fields]").val(form_count);
+
+})
+</script>  {% endcomment %}
+
+</body>
+</html>
