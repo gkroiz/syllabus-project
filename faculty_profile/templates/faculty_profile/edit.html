@@ -12,18 +12,8 @@
 <div class="container">
     <form action="{% url 'faculty_profile:add' %}" method="post">
         {% csrf_token %}
-        Enter an ID: <br/>
-        <input type="text" name="ID"><br/>
-
-        Enter an Office Location:<br/>
-        <input type="text" name="location"><br/>
-
-        Enter an Office Phone Number:<br/>
-        <input type="text" name="phone"><br/>
-
-        Enter Office Hours:<br/>
-        <input type="text" name="hours"><br/>
-        <input type="submit">
+        {{ form|linebreaks }}
+        <input type="submit" value="Submit">
     </form>
 </div>
 

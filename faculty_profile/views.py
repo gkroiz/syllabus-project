@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from faculty_profile.models import Profile
+from .forms import EditProfileForm
 
 
 def index(request):
@@ -11,7 +12,22 @@ def index(request):
 
 
 def edit(request):
-    return render(request, 'faculty_profile/edit.html', context={})
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = EditProfileForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/add/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = EditProfileForm()
+
+    return render(request, 'faculty_profile/edit.html', {'form': form})
 
 
 def syllabus(request):
