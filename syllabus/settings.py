@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+  
     'backend.apps.BackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'login',
     'syllabus_form',
     'reportlab',
+    'faculty_profile.apps.FacultyProfileConfig',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'EST'
+
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
