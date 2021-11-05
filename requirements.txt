@@ -1,0 +1,2 @@
+Django~=3.2.8
+python-decouple~=3.5
