@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'syllabus_form',
+    'reportlab',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,14 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+##EXTRA STUFF
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Template files
+# https://docs.djangoproject.com/en/1.7/topics/templates/
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
