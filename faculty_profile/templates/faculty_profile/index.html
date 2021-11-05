@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Profile</title>
+</head>
+<body>
+    To Edit or Create a Syllabus: <br>
+    <a href="{% url 'faculty_profile:syllabus' %}">Syllabus Modifier</a> <br>
+
+    To Edit your Profile: <br>
+    <a href="{% url 'faculty_profile:edit' %}">Profile Modifier</a> <br>
+
+    <ul>
+        {% for profile in profiles %}
+            <li> Faculty ID: {{ profile.ID }} </li>
+            <li> Office Location: {{ profile.location }} </li>
+            <li> Office Phone: {{ profile.phone }} </li>
+            <li> Office Hours: {{ profile.hours }} </li>
+            <br/>
+        {% endfor %}
+    </ul>
+</body>
+</html>

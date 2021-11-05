@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<body>
+
+<div class="container">
+    <form action="{% url 'faculty_profile:add' %}" method="post">
+        {% csrf_token %}
+        {{ form|linebreaks }}
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
