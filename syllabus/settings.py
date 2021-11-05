@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'backend.apps.BackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -35,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
+    'syllabus_form',
+    'reportlab',
 ]
 
 MIDDLEWARE = [
@@ -100,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
@@ -121,3 +124,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'login.CustomUser'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+##EXTRA STUFF
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Template files
+# https://docs.djangoproject.com/en/1.7/topics/templates/
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)

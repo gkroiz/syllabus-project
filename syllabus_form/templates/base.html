@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!doctype html>{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://unpkg.com/htmx.org@1.6.0"></script>
+</head>
+<body>
+<div style="width: 100%;">
+        <div style="width: 50%; height: 100%; float: left;"> 
+            <form id="empty-layer-uploader" method="post" enctype="multipart/form-data" action=".">
+                {%csrf_token %}
+                {% for field in form %}
+                <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} <br/>
+                {{ field }}
+                </div>
+                {% endfor %}
+                </br>
+                <button type="submit" class="btn btn-success btn-sm" name="add" id="add">Add New Box</button>
+                <button type="submit"class="btn btn-success btn-sm" name="remove" id="remove">Remove Box</button> </br> 
+                </br>
+                <button type="submit" class="btn btn-success btn-sm" name="update" id="update">Update</button>   
+                <button type="submit" class="btn btn-success btn-sm" name="submit" id="submit">Submit</button>  
+            </form>
+        </div>
+        {% comment %} <div style="margin-left: 50%; height: 1000px;">  {% endcomment %}
+            {% comment %} <iframe src='https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf' width="100%" height="100%"> {% endcomment %}
+            {% comment %} </iframe> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+        <div style="margin-left: 50%; height: 1000px;"> 
+            <iframe src="https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf" width="100%" height="100%">
+            {% comment %} <iframe src="{% static "/pdf"%}" width="100%" height="100%"> {% endcomment %}
+            </iframe>
+            {% comment %} <object data="syllabus.pdf" type="application/pdf" width="100%" height="100%"> {% endcomment %}
+            {% comment %} <p>Alternative text - include a link <a href="syllabus.pdf">to the PDF!</a></p> {% endcomment %}
+            {% comment %} </object> {% endcomment %}
+            <iframe id="iframe_pdf" src="{{ doc_file.url }}" style="width:800px; height:800px;" frameborder="0"></iframe>
+        </div>
+    </div>
+</body>
+<body>
+    <script>
+    let form_count = Number($("[name=extra_field_count]").val());
+    // get extra form count so we know what index to use for the next item.
+
+    $("#add").click(function() {
+        form_count ++;
+
+        let element = $('<input type="text"/>');
+        element.attr('name', 'extra_field_' + form_count);
+        $("#forms").append(element);
+        // build element and append it to our forms container
+
+        $("[name=extra_field_count]").val(form_count);
+        // increment form count so our view knows to populate 
+        // that many fields for validation
+    })
+    $("#remove").click(function() {
+            form_count --;
+
+            let element = $('<input type="text"/>');
+            element.attr('name', 'extra_field_' + form_count);
+            $("#forms").remove(element);
+            // build element and append it to our forms container
+
+            $("[name=extra_field_count]").val(form_count);
+            // increment form count so our view knows to populate 
+            // that many fields for validation
+        })
+    </script>
+
+</body>
+</html>
