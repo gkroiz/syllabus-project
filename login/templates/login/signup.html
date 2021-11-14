@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+</head>
+
+<body>
+    <h1>Sign up</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in registration_form %}
+            <p>
+                {{field.label_tag}}
+                {{field}}
+
+                {% if field.help_text %}
+                    <small style="color: gray;">{{field.help_text}}</small>
+                {% endif %}
+
+                {% for error in field.errors %}
+                    <p style="color: red">{{error}}</p>
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <button type="submit">Sign Up</button>
+    </form>
+
+
+
+
+</body>
+</html>
