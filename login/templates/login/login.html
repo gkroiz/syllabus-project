@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h1>Login up</h1>
+    <h1>Login</h1>
     <form method="post">{% csrf_token %}
 	{% for field in login_form %}
 		<p>
@@ -32,7 +32,12 @@
 		</div>
 	{% endif %}
 	<button type="submit">Log in</button>
-
+	<a href="{% url 'signup' %}">
+            <input type="button" value="Sign up" />
+        </a>
+	<a href="{% url 'signup' %}">
+		<input type="button" value="Forgot Password"/>
+	</a>
 </form>
 
 </body>
