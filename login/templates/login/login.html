@@ -11,7 +11,6 @@
 	body {
 		height: 100%;
 	}
-
 	body {
 	  display: flex;
 	  align-items: center;
@@ -19,25 +18,24 @@
 	  padding-bottom: 60px;
 	  background-color: #f5f5f5;
 	}
-
-	.form-signin {
+	.form-login {
 	  width: 100%;
 	  max-width: 330px;
 	  padding: 20px;
 	  margin: auto;
 	}
 
-	.form-signin .form-floating:focus-within {
+	.form-login .form-floating:focus-within {
 	  z-index: 2;
 	}
 
-	.form-signin input[type="email"] {
-	  margin-bottom: -1px;
+	.form-login input[type="email"] {
+	  margin-bottom: 10px;
 	  border-bottom-right-radius: 0;
 	  border-bottom-left-radius: 0;
 	}
 
-	.form-signin input[type="password"] {
+	.form-login input[type="password"] {
 	  margin-bottom: 10px;
 	  border-top-left-radius: 0;
 	  border-top-right-radius: 0;
@@ -46,29 +44,54 @@
 		font-size: larger;
 		text-align: center;
 	}
+	.button{
+		margin-bottom: 10px;
+		background-color: #0d6efd;
+		border-color: #0d6efd;
+	  	color: white;
+	  	padding: 14px 25px;
+	  	text-align: center;
+	  	text-decoration: none;
+	  	display: inline-block;
+		width: 100%;
+		padding: .5rem 1rem;
+		font-size: 1.25rem;
+		border-radius: .3rem;
+		cursor: pointer;
+		text-transform: none;
+		box-sizing: border-box;
+		border-top-width: 2px;
+		border-right-width: 2px;
+		border-bottom-width: 2px;
+		border-left-width: 2px;
+		border-top-style: outset;
+		border-right-style: outset;
+		border-bottom-style: outset;
+		border-left-style: outset;
 
-	a{
-		color: white;
-		text-decoration: none;
 	}
-	a:hover, a:active {
-		background-color: transparent;
-		color: white;
+	a:link {
+	  text-decoration: none;
+	  color: white;
 	}
+
 	</style>
 
-	<main class="form-signin">
-
+	<main class="form-login">
 	  <form method="post">{% csrf_token %}
 		<h1 class="h3 mb-3 fw-normal">Login</h1>
 
 		<div class="form-floating">
-		  	<input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+		  	<input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" autofocus>
 			<label for="floatingInput">Email address</label>
 		</div>
+
+
 		<div class="form-floating">
 		  	<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
 			<label for="floatingInput">Password</label>
+
+
 		</div>
 		  {% for field in login_form %}
 		  	<p>
@@ -82,9 +105,13 @@
 				<p>{{login_form.non_field_errors}}</p>
 			</div>
 		  {% endif %}
-		<button class="w-100 btn-lg btn-primary" type="submit">Log in</button>
-	  	<button class="w-100 btn-lg btn-primary" formaction="{% url 'signup' %}"type="submit">Sign up</button>
-	  	<button class="w-100 btn-lg btn-primary" formaction="{% url 'password_reset' %}"type="submit">Forgot Password</button>
+		<button class="button" type="submit">Log in</button>
+		<a href="{% url 'signup' %}" class="button">Signup</a>
+		<a href="{% url 'password_reset' %}" class="button">Forgot Password</a>
+
+
+
+
 
 	  </form>
 	</main>

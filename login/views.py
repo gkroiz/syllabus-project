@@ -14,14 +14,16 @@ from django.utils.http import urlsafe_base64_encode
 
 from .forms import AccountAuthenticationForm, UserCreationForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth import get_user_model
-User = get_user_model()
+
+
 
 # Create your views here.
 
 
 
 def password_reset_request(request):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
@@ -60,8 +62,8 @@ def signup(request):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=password)
-            login(request, account)
-            return redirect('index')
+            #login(request, account)
+            return redirect('login')
         else:
             context['registration_form'] = form
     else:  # Get request
