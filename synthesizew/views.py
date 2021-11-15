@@ -41,6 +41,7 @@ def add(request):
             pass
         else:
             syllabus_data[key] = ""
+        print(key + ": " + syllabus_data[key])
     # adding values from dictionary of extracted values of pdf (but not pdf file itself) to object,
     # then pushing it into database
     new_syllabus = Syllabus(syllabus_file=pre_syllabus, 
