@@ -1,3 +1,4 @@
 Django~=3.2.8
 python-decouple~=3.5
 textract~=1.6.4
+selenium~=4.0.0

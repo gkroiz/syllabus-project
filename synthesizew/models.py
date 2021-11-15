@@ -2,6 +2,7 @@ from django.db import models
 
 
 # Create your models here.
+
 class Syllabus(models.Model):
     syllabus_file = models.FileField(upload_to='syllabi/', default='syllabus.pdf')
     title = models.CharField(max_length=9, default='TUFF 101', primary_key=True)
@@ -32,6 +33,8 @@ class Syllabus(models.Model):
     late_policy = models.TextField(default='Whenever it suits you')
     makeup_policy = models.TextField(default='There are no second chances')
 
-    @staticmethod
-    def is_created(self, syllabus, key_value):
-        return hasattr(syllabus, key_value)
+    def check_key_exists(self, key_value):
+        return hasattr(self, key_value)
+
+    def get_key(self, key_value):
+        return Syllabus.objects.filter(self, key_value)

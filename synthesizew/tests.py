@@ -35,7 +35,6 @@ class SyllabusTestCase(TestCase):
                                 homework='Life has no homework (wish school was the same,',
                                 late_policy='Whenever it suits you',
                                 makeup_policy='There are no second chances')
-
         Syllabus.objects.create(syllabus_file='syllabus_CMSC104.pdf',
                                 title='CMSC 104',
                                 instructor_name='Dr. Jeremy Dixon',
@@ -44,12 +43,12 @@ class SyllabusTestCase(TestCase):
                                 office_hours='2-3am',
                                 course_time='9am-5pm',
                                 course_description='A course that didn\'t have one!',
-                                prereqs='Admission to UMBC, a willingness to succeed, and a passion for more',
+                                prereqs='Admission to UMBC and a willingness to fail',
                                 textbook='Dune by Frank Herbert',
                                 instruct_methods='IRL talking',
                                 attendance_rule='100% attendance of all classes online and in-person',
                                 course_requirements='None',
-                                grade_breakdown='45% exams, 30% quizzes, 10% participation, 15% programming assignments',
+                                grade_breakdown='45% exams, 30% quizzes, 10% participation, 15% projects',
                                 quizzes='Three short essay questions',
                                 exams='10 short essay questions, 1 hour each',
                                 prog_assignments='Linked lists and building an OS from scratch',
@@ -57,21 +56,33 @@ class SyllabusTestCase(TestCase):
                                 makeup_policy='Email professor for details')
 
     def test_dictionary_setup_correctly(self):
-        """ Syllabi that are complete should have all fields attached! (which is expected) """
-        syllabus_1 = Syllabus.objects.get(title="IS 148")
+        """ Syllabi that are complete should have all fields attached! (which is expected - even if blank) """
+        syllabus_1 = Syllabus.objects.get(title="TUFF 101")
         syllabus_2 = Syllabus.objects.get(title="CMSC 104")
-
         keys = ['syllabus_file', 'title', 'instructor_name', 'instructor_email', 'ta_name', 'ta_email',
                 'course_site', 'instructor_phone', 'office_hours', 'course_time', 'course_description',
                 'course_objectives', 'prereqs', 'textbook', 'instruct_methods', 'attendance_rule',
                 'class_preparation', 'course_requirements', 'grade_breakdown', 'quizzes', 'exams',
                 'prog_assignments', 'participation', 'hands_on', 'assignments', 'homework', 'late_policy',
                 'makeup_policy']
-
-        self.assertAlmostEqual(syllabus_1, syllabus_2)  # this should hopefully pass but probably not
-
         for key in keys:
-            # checks each key exists and is passed correctly for each syllabus.
-            # should fail sometimes, run other times
-            self.assertEqual(syllabus_1[key], Syllabus.is_created(syllabus_1, key))
-            self.assertEqual(syllabus_2[key], Syllabus.is_created(syllabus_2, key))
+            # check each syllabus has all fields (even if empty)
+            self.assertTrue(hasattr(syllabus_1, key))
+            self.assertTrue(hasattr(syllabus_2, key))
+
+    # both tests here confirm they are themselves and not cross-contaminating data (and that they have
+    # the same number of fields)
+    def test_fields_correct_syllabus_1(self):
+        syllabus = Syllabus.objects.get(title="TUFF 101")
+        self.assertEqual(syllabus.ta_name, "Philip Rous")
+        self.assertEqual(syllabus.course_site, "https://blackboard.umbc.edu")
+        self.assertNotEqual(syllabus.title, "CMSC 104")
+        self.assertFalse(syllabus.title == Syllabus.objects.get(title="CMSC 104").ta_name)
+
+    def test_fields_correct_syllabus_2(self):
+        syllabus = Syllabus.objects.get(title="CMSC 104")
+        self.assertEqual(syllabus.ta_name, "Philip Rous")
+        self.assertEqual(syllabus.course_site, "https://blackboard.umbc.edu")
+        self.assertNotEqual(syllabus.title, "TUFF 101")
+        self.assertEqual(Syllabus.objects.get(title="CMSC 104")._meta.get_fields(),
+                         Syllabus.objects.get(title="TUFF 101")._meta.get_fields())
