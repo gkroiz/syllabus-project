@@ -7,14 +7,14 @@
 </head>
 
 <body>
-<style>
+	<style>
 	body {
 		height: 100%;
 	}
 	body {
 	  display: flex;
 	  align-items: center;
-	  padding-top: 250px;
+	  padding-top: 200px;
 	  padding-bottom: 60px;
 	  background-color: #f5f5f5;
 	}
@@ -31,32 +31,30 @@
 
 	.form-login input[type="email"] {
 	  margin-bottom: 10px;
-	  border-bottom-right-radius: 0;
-	  border-bottom-left-radius: 0;
+		border-radius: 10px;
 	}
 
 	.form-login input[type="password"] {
 	  margin-bottom: 10px;
-	  border-top-left-radius: 0;
-	  border-top-right-radius: 0;
+		border-radius: 10px;
 	}
 	h1{
 		font-size: larger;
 		text-align: center;
 	}
 	.button{
+
 		margin-bottom: 10px;
 		background-color: #0d6efd;
 		border-color: #0d6efd;
 	  	color: white;
-	  	padding: 14px 25px;
-	  	text-align: center;
+		text-align: center;
 	  	text-decoration: none;
 	  	display: inline-block;
-		width: 100%;
-		padding: .5rem 1rem;
+		width: 90%;
+		padding: .3rem 1rem;
 		font-size: 1.25rem;
-		border-radius: .3rem;
+		border-radius: 10px;
 		cursor: pointer;
 		text-transform: none;
 		box-sizing: border-box;
@@ -68,29 +66,28 @@
 		border-right-style: outset;
 		border-bottom-style: outset;
 		border-left-style: outset;
-
+		margin-left:12px;
 	}
 	a:link {
 	  text-decoration: none;
 	  color: white;
 	}
-
+	.display-4{
+		text-align: center;
+	}
 	</style>
 
 	<main class="form-login">
 	  <form method="post">{% csrf_token %}
-		<h1 class="h3 mb-3 fw-normal">Login</h1>
-
+		<p class="display-4">Login</p>
 		<div class="form-floating">
 		  	<input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com" autofocus>
 			<label for="floatingInput">Email address</label>
 		</div>
 
-
 		<div class="form-floating">
 		  	<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
 			<label for="floatingInput">Password</label>
-
 
 		</div>
 		  {% for field in login_form %}
