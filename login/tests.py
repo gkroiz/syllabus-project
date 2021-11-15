@@ -6,45 +6,93 @@ from django.test import LiveServerTestCase
 
 
 # Create your tests here.
+from selenium.webdriver.common import keys
 
 
-class SignupTests(TestCase):
-    def test_home(self):
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_signup_view(self):
-        response = self.client.get('/signup/')
-        self.assertEqual(response.status_code, 200)
-
+class LoginTest(TestCase):
+    # test the login view
     def test_login_view(self):
-        response = self.client.get('/accounts/login/')
+        response = self.client.get('/login/')
+        self.assertEqual(response.status_code, 200)
+
+    # test the signup view
+    def test_signup_view(self):
+        response = self.client.get('/login/signup/')
+        self.assertEqual(response.status_code, 200)
+
+    # test the forgotPassword view
+    def test_forgot_password_view(self):
+        response = self.client.get('/login/password_reset/')
+        self.assertEqual(response.status_code, 200)
+
+    # test the sent email view
+    def test_password_reset_email_sent_view(self):
+        response = self.client.get('/password_reset/done/')
+        self.assertEqual(response.status_code, 200)
+
+    # test the password Change view
+    def test_password_change_view(self):
+        response = self.client.get('/reset/MjU/set-password/')
+        self.assertEqual(response.status_code, 200)
+
+    # test the password reset done view
+    def test_password_reset_dont_view(self):
+        response = self.client.get('/reset/done/')
         self.assertEqual(response.status_code, 200)
 
 
 class CourseFormSeleniumTests(LiveServerTestCase):
 
     # test just filling in the default boxes and submitting
-    def testBasicform(self):
+    def testSignupform(self):
         selenium = webdriver.Chrome('/Users/deepmistry/bin/chromedriver')
+        # Goes to signup page
+        selenium.get('http://127.0.0.1:8000/login/signup')
 
-        # choose url to use
-        selenium.get('http://127.0.0.1:8000/signup')
-        email = selenium.find_element_by_id('id_email')
-        firstName = selenium.find_element_by_id('id_first_name')
-        lastName = selenium.find_element_by_id('id_last_name')
-        password1 = selenium.find_element_by_id('id_password1')
-        password2 = selenium.find_element_by_id('id_password2')
-        submit = selenium.find_element_by_name('submit')
+        # Finds the fields
+        email = selenium.find_element_by_name('email')
+        first_name = selenium.find_element_by_name('first_name')
+        last_name = selenium.find_element_by_name('last_name')
+        password1 = selenium.find_element_by_name('password1')
+        password2 = selenium.find_element_by_name('password2')
+        submit = selenium.find_element_by_tag_name('button')
 
         # adds the value in fields
-        email.send_keys('user@umbc.edu')
-        firstName.send_keys('user')
-        lastName.send_keys('Last')
-        password1.send_keys('Password@1')
-        password2.send_keys('Password@1')
+        email.send_keys("user@umbc.edu")
+        first_name.send_keys("Test")
+        last_name.send_keys("User")
+        password1.send_keys("Password@1")
+        password2.send_keys("Password@1")
+
+        time.sleep(5)
+        submit.send_keys(Keys.RETURN)
         time.sleep(5)
 
-        # submit form
+    def testLoginForm(self):
+        selenium = webdriver.Chrome('/Users/deepmistry/bin/chromedriver')
+        # Goes to signup page
+        selenium.get('http://127.0.0.1:8000/login')
+
+        email = selenium.find_element_by_name('email')
+        password1 = selenium.find_element_by_name('password')
+        submit = selenium.find_element_by_tag_name('button')
+
+        email.send_keys("user@umbc.edu")
+        password1.send_keys("Password@1")
+        time.sleep(5)
         submit.send_keys(Keys.RETURN)
+        time.sleep(5)
+
+    def testForgotPasswordForm(self):
+        selenium = webdriver.Chrome('/Users/deepmistry/bin/chromedriver')
+        # Goes to signup page
+        selenium.get('http://127.0.0.1:8000/login/password_reset')
+
+        email = selenium.find_element_by_name('email')
+        submit = selenium.find_element_by_tag_name('button')
+
+        email.send_keys("user@umbc.edu")
+        time.sleep(5)
         submit.send_keys(Keys.RETURN)
+        time.sleep(5)
+
