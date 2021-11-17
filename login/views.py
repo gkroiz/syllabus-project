@@ -1,4 +1,3 @@
-import requests
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
@@ -63,7 +62,7 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=password)
             #login(request, account)
-            return redirect('login')
+            return redirect('login:login')
         else:
             context['registration_form'] = form
     else:  # Get request
@@ -75,8 +74,9 @@ def signup(request):
 def login_view(request):
     context = {}
     user = request.user
+
     if user.is_authenticated:
-        return redirect('homepage')
+        return redirect('faculty_profile:index')
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
         if form.is_valid():
@@ -86,7 +86,7 @@ def login_view(request):
 
             if user:
                 login(request, user)
-                return redirect('homepage')
+                return redirect('faculty_profile:index')
     else:
         form = AccountAuthenticationForm()
     context['login_form'] = form
