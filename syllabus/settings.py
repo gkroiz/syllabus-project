@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'login',
     'syllabus_form',
     'reportlab',
+    'dept_info',
     'faculty_profile.apps.FacultyProfileConfig',
     'homepage.apps.HomepageConfig',
 ]
