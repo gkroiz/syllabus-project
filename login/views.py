@@ -98,6 +98,3 @@ def logout_view(request):
     logout(request)
     return redirect('homepage:index')
 
-
-def homepage(request):
-    return render(request, 'login/homepage.html')
