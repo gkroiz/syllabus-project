@@ -5,7 +5,7 @@ from . import views
 app_name = 'faculty_profile'
 urlpatterns = [
     # profile index (placeholder, should be deleted in the future)
-    path('', views.index, name='index'),
+    path('<str:user_id>/', views.index, name='index'),
     path('edit/', views.edit, name='edit'),
     path('add/', views.add, name='add'),
     path('syllabus/', views.syllabus, name='syllabus')

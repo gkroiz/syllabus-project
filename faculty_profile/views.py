@@ -6,7 +6,7 @@ from faculty_profile.models import Profile
 from .forms import EditProfileForm
 
 
-def index(request):
+def index(request, user_id):
     profiles = Profile.objects.filter()
     return render(request, 'faculty_profile/index.html', context={'profiles': profiles})
 
