@@ -27,5 +27,4 @@ def dept(request):
 
 
 def submitted(request):
-    return
     return render(request, 'dept_name/submitted.html')

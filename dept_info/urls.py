@@ -6,5 +6,5 @@ app_name = 'dept_info'
 urlpatterns = [
     # home page
     path('', views.dept, name='dept'),
-    path('submitted', views.dept, name='submitted'),
+    path('submitted', views.submitted, name='submitted'),
 ]

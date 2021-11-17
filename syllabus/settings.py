@@ -24,12 +24,11 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Application definition
 
 INSTALLED_APPS = [
 
-    'backend.apps.BackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,8 +126,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'login.CustomUser'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
+#LOGIN_REDIRECT_URL = '/'
+#LOGOUT_REDIRECT_URL = '/'
 ##EXTRA STUFF
 import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
