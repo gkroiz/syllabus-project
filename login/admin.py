@@ -3,7 +3,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
+from login.models import CustomUser
 # Register your models here.
+
 
 class CustomUserAdmin(UserAdmin):
     """Got this from default and removed username"""
@@ -25,4 +27,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
-admin.site.register(get_user_model(), CustomUserAdmin)
+
+admin.site.register(CustomUser,CustomUserAdmin)
