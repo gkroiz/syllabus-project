@@ -20,7 +20,10 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('homepage.urls')),
     path('login/', include('login.urls')),
+    path('syllabus_form/', include('syllabus_form.urls')),
+    path('profile/', include('faculty_profile.urls')),
 
     #Needed for password reset. ONLY WORKS IF THEY ARE IN THE PROJECT URL AND NOT IN APP URL
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='login/password_reset/password_reset_done.html'), name='password_reset_done'),
