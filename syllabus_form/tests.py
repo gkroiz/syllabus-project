@@ -211,7 +211,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         grade_apportionment.send_keys('In-class programming = 20%\n'\
             'Reading and Programming Homework = 10%\n'\
             'Test = 30%\n'\
-            'Hnads-on Programming Test = 30%\n'
+            'Hands-on Programming Test = 30%\n'
             'Attendance = 10%')
 
         time.sleep(2) 
@@ -305,7 +305,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
             '\n\n If you have a documented disability and need to request acadmeic accomodations in your courses, please refer to the SDS wesbite at https://sds.umbc.edu/ for registration information and office procedures.'\
             '\n\nSDS email: disability@umbc.edu'\
             '\nSDS phone: (410)-455-2459'\
-            'If you will be using SDS approved accomodations in this class, please contact me (instructor) to discuss implementation of the accomodations.'\
+            '\nIf you will be using SDS approved accomodations in this class, please contact me (instructor) to discuss implementation of the accomodations.'\
             ' During remote instruction requirements due to COVID, communication and flexibility will be essential for success.')
 
         time.sleep(2) 
@@ -315,12 +315,14 @@ class CourseFormSeleniumTests(LiveServerTestCase):
 
         #################################################### PAGE 16 ####################################################
         #find elements for page 16/17
-        # course_schedule = selenium.find_element_by_id('id_16-course_schedule')
+        course_schedule = selenium.find_element_by_id('id_16-course_schedule')
 
         submit = selenium.find_element_by_id('submit')
 
+        time.sleep(1) 
+
         #populate the form with data for page 16/17
-        # course_schedule.send_keys('The course scheudle is subject to change. An up-to-date schedule is available on the course website.')
+        course_schedule.send_keys('The course schedule is subject to change. An up-to-date schedule is available on the course website.')
 
         time.sleep(2) 
 
@@ -342,7 +344,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         #submit page 17/17
         submit.send_keys(Keys.RETURN)
 
-        time.sleep(10)
+        time.sleep(20)
 
     #test that the button that sends the wizard back to the first step works
     def testFirstStep(self):

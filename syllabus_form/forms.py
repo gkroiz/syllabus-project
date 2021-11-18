@@ -73,8 +73,8 @@ class CourseForm15(forms.Form):
 
 #course_schedule
 class CourseForm16(forms.Form):
-    # course_schedule = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='course_schedule')
-    course_schedule = ...
+    course_schedule = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'placeholder': 'This part is incomplete and will be revised.'}), label='course_schedule')
+    # course_schedule = ...
 
 class CourseForm17(forms.Form):
     inclement_weather = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label = 'Inclement Weather')

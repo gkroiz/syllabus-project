@@ -227,7 +227,7 @@ def createPDF2(form):
 
     #from CourseForm16
     #needs to be worked on
-    course_schedule = ''
+    course_schedule = form[15].cleaned_data['course_schedule']
 
     #from CourseForm17
     inclement_weather = form[16].cleaned_data['inclement_weather']
@@ -366,13 +366,13 @@ def createPDF2(form):
     Story.append(Paragraph('', styles['Department_Info']))
 
     #schedule
-    Story.append(Paragraph('<b><u>Course Schedule:</u></b> ', styles['paragraph_text']))
+    Story.append(Paragraph('<b><u>Course Schedule:</u></b> ' + course_schedule, styles['paragraph_text']))
 
     Story.append(Paragraph('', styles['Department_Info']))
     Story.append(Paragraph('', styles['Department_Info']))
 
     #inclement weather
-    Story.append(Paragraph('<b><u>Inclement Weather:</u></b> ' + accomodations, styles['paragraph_text']))
+    Story.append(Paragraph('<b><u>Inclement Weather:</u></b> ' + inclement_weather, styles['paragraph_text']))
 
 
     doc.build(Story)
