@@ -27,7 +27,7 @@ class CourseForm2(forms.Form):
 class CourseForm3(forms.Form):
     meeting_times = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='')
 
-
+#general course information
 class CourseForm4(forms.Form):
     textbook = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label='Textbook')
     course_description = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'placeholder': 'Include catalog description and a statement about the course place in the curriculum or relevance to the discipline'}), label = 'Course Description')
@@ -38,36 +38,44 @@ class CourseForm4(forms.Form):
 class CourseForm5(forms.Form):
     course_objectives = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='')
 
-
+#instructional methods
 class CourseForm6(forms.Form):
     instructional_methods = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label = 'Instruction Methods')
 
+#attendance and participation
 class CourseForm7(forms.Form):
     attendance_participation = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Attendance and Participation')
 
+#class preparation and student success
 class CourseForm8(forms.Form):
     class_pre_and_student_success = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Class Preparation and Student Success')
 
+#course requirements
 class CourseForm9(forms.Form):
     course_requirements = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Course Requirements')
 
+#grade apportionment
 #need to add grading split, and description about each portion of the grade split
 class CourseForm10(forms.Form):
     grade_apportionment = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'placeholder': 'Homeworks = 15%\nProject = 30%\nExam = 20%\nQuizzes = 15%\nFinal = 20%'}), label='Grade Apportionment')
 
-
+#grading standards
 class CourseForm11(forms.Form):
     grading_standards = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Grading Standards')
-    
+
+#due dates
 class CourseForm12(forms.Form):
     due_dates = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Due Dates')
 
+#make up policy
 class CourseForm13(forms.Form):
     make_up_policy = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Make-up Policy')
 
+#academic integrity
 class CourseForm14(forms.Form):
     academic_integrity = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Academic Integrity')
 
+#accomodations
 class CourseForm15(forms.Form):
     accomodations = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label='Accomodations')
 
@@ -76,5 +84,6 @@ class CourseForm16(forms.Form):
     course_schedule = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control', 'placeholder': 'This part is incomplete and will be revised.'}), label='course_schedule')
     # course_schedule = ...
 
+#inclement weather
 class CourseForm17(forms.Form):
     inclement_weather = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}), label = 'Inclement Weather')
