@@ -29,7 +29,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INSTALLED_APPS = [
 
-    'backend.apps.BackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'login',
     'syllabus_form',
     'reportlab',
+    'dept_info',
     'faculty_profile.apps.FacultyProfileConfig',
     'homepage.apps.HomepageConfig',
 ]
