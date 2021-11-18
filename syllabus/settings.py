@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'login',
     'syllabus_form',
     'reportlab',
-    'faculty_profile.apps.FacultyProfileConfig',
-    'homepage.apps.HomepageConfig',
+    'faculty_profile',
+    'homepage',
+
 ]
 
 MIDDLEWARE = [
