@@ -4,3 +4,4 @@ textract~=1.6.4
 self~=2020.12.3
 selenium~=4.0.0
 reportlab~=3.6.2
+django-formtools~=2.3

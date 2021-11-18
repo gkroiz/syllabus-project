@@ -42,7 +42,12 @@ INSTALLED_APPS = [
     'dept_info',
     'faculty_profile.apps.FacultyProfileConfig',
     'homepage.apps.HomepageConfig',
+    'formtools',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,6 +89,14 @@ DATABASES = {
     }
 }
 
+# Caches
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-CACHES-BACKEND
+
+# CACHES = {
+    # 'default': {
+        # 'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+    # }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
