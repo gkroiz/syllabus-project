@@ -4,8 +4,6 @@ from .forms import DeptInfo
 
 
 # Create your views here.
-# def dept(request):
-#     return render(request, 'dept_name/index.html')
 
 def dept(request):
     # if this is a POST request we need to process the form data
@@ -23,6 +21,6 @@ def dept(request):
 
     return render(request, 'dept_name/index.html', {'form': form})
 
-
+# Basic template for submitted item
 def submitted(request):
     return render(request, 'dept_name/submitted.html')
