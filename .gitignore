@@ -138,3 +138,6 @@ cython_debug/
 
 # Extra ignores
 .idea
+
+# syllabi files
+syllabi_upload/*
