@@ -31,10 +31,10 @@
             {% endif %}
             </br>
             {% if wizard.steps.prev %}
-            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" class="btn btn-success">{% trans "first step" %}</button>
-            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate class="btn btn-success">{% trans "prev step" %}</button>
+            <button id="first" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate class="btn btn-success">{% trans "first step" %}</button>
+            <button id="prev" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate class="btn btn-success">{% trans "prev step" %}</button>
             {% endif %}
-            <button type="submit" value="{% trans "submit" %}" class="btn btn-success">{% trans "next step" %}</button>
+            <button id="submit" type="submit" value="{% trans "submit" %}" class="btn btn-success">{% trans "next step" %}</button>
             {% comment %} </form> {% endcomment %}
             </div>
 

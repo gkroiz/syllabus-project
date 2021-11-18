@@ -265,7 +265,7 @@ def createPDF2(form):
         meeting_times_split = meeting_times.split('\n')
         Story.append(Paragraph('<b><u>Meeting Times:</u></b> ', styles['instructor_info']))
         for i in range(len(meeting_times_split)):
-            Story.append(Paragraph(indent + meeting_times_split[i], styles['paragraph_text']))
+            Story.append(Paragraph(indent + ' ' + meeting_times_split[i], styles['paragraph_text']))
     else:
         Story.append(Paragraph('<b><u>Meeting Time:</u></b> ' + meeting_times, styles['paragraph_text']))
 
@@ -295,7 +295,7 @@ def createPDF2(form):
         course_objectives_split = course_objectives.split('\n')
         Story.append(Paragraph('<b><u>Course Objectives:</u></b> ', styles['paragraph_text']))
         for i in range(len(course_objectives_split)):
-            Story.append(Paragraph(indent + course_objectives_split[i], styles['paragraph_text']))
+            Story.append(Paragraph(indent + ' ' + course_objectives_split[i], styles['paragraph_text']))
     else:
         Story.append(Paragraph('<b><u>Course Objectives:</u></b> ' + course_objectives, styles['paragraph_text']))
 
@@ -330,7 +330,7 @@ def createPDF2(form):
     grade_apportionment_split = grade_apportionment.split('\n')
     Story.append(Paragraph('<b><u>Grade Apportionment:</u></b> ', styles['paragraph_text']))
     for i in range(len(grade_apportionment_split)):
-        Story.append(Paragraph(indent + grade_apportionment_split[i], styles['paragraph_text']))
+        Story.append(Paragraph(indent + ' ' + grade_apportionment_split[i], styles['paragraph_text']))
 
     Story.append(Paragraph('', styles['Department_Info']))
     Story.append(Paragraph('', styles['Department_Info']))
