@@ -20,7 +20,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
 
     #test form wizard
     def testFormWizard(self):
-        selenium = webdriver.Chrome(executable_path='/Users/gersonkroiz/chromedriver')
+        selenium = webdriver.Chrome(executable_path='chromedriver')
 
         #choose url to use
         selenium.get('http://127.0.0.1:8000/syllabus_form/wizard')
@@ -348,7 +348,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
 
     #test that the button that sends the wizard back to the first step works
     def testFirstStep(self):
-        selenium = webdriver.Chrome(executable_path='/Users/gersonkroiz/chromedriver')
+        selenium = webdriver.Chrome(executable_path='chromedriver')
 
         #choose url to use
         selenium.get('http://127.0.0.1:8000/syllabus_form/wizard')
@@ -423,7 +423,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
 
     #test that the button that sends the wizard back one page works
     def testPrevStep(self):
-        selenium = webdriver.Chrome(executable_path='/Users/gersonkroiz/chromedriver')
+        selenium = webdriver.Chrome(executable_path='chromedriver')
 
         #choose url to use
         selenium.get('http://127.0.0.1:8000/syllabus_form/wizard')
