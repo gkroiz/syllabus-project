@@ -5,3 +5,4 @@ self~=2020.12.3
 selenium~=4.0.0
 reportlab~=3.6.2
 django-formtools~=2.3
+django-crispy-forms~=1.13.0

@@ -4,7 +4,7 @@ from selenium.webdriver import Keys
 from django.test import TestCase
 from django.test import LiveServerTestCase
 import time
-EXE_PATH = 'C:/Users/Eddie/Downloads/chromedriver_win32/chromedriver.exe'
+#EXE_PATH = 'C:/Users/Eddie/Downloads/chromedriver_win32/chromedriver.exe'
 # Test for URL routes and Views
 class ViewTests(TestCase):
 
@@ -22,7 +22,7 @@ class DepartmentSeleniumTests(LiveServerTestCase):
 
     # test just filling in the default boxes and submitting
     def test_info_submit(self):
-        selenium = webdriver.Chrome(executable_path=EXE_PATH)
+        selenium = webdriver.Chrome('chromedriver')
 
         # Goes to signup page
         selenium.get('http://127.0.0.1:8000/dept_info')
