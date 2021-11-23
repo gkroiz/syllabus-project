@@ -141,3 +141,7 @@ cython_debug/
 
 # syllabi files
 syllabi_upload/*
+
+# project models (for easy migration to new machines)
+syllabus/migrations/*
+!syllabus/migrations/__init__.py

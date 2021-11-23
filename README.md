@@ -18,6 +18,8 @@
 ## Technical information
 The prerequisite software required to develop this program are Python 3, Django (pip module), textract (pip module), python-decouple (pip module), and optionally virtualenv (separate Python product) to make your life easier.
 
+If running a fresh ```git pull``` on any branch with new developments, you'll need to delete your ```db.sqlite3``` and run ```python manage.py makemigrations``` and ```python manage.py migrate``` all over again each time to ensure the project functions correctly.
+
 The software needs to be configured with the appropriate .env file (secret key and other related info) that can be collected from the project lead. From there, choose an IDE and make sure you have Git to push changes as needed.
 
 To run the SynthesizePDF tests, at the moment, do nothing. The feature for synthesizing PDFs is not specifically tested without significantly redoing the codebase, so testing is done by ```runserver``` with ```manage.py``` instead of ```tests.py```.
