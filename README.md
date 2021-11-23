@@ -22,6 +22,10 @@ If running a fresh ```git pull``` on any branch with new developments, you'll ne
 
 The software needs to be configured with the appropriate .env file (secret key and other related info) that can be collected from the project lead. From there, choose an IDE and make sure you have Git to push changes as needed.
 
+To run the server after a fresh git pull where new apps are involved, you'll need to delete your ```db.sqlite3``` and any files in ```syllabus/migrations``` (apart from ```__init__.py``` - that must stay) and do ```python manage.py makemigrations``` and ```python manage.py migrate``` to ensure the project behaves correctly.
+
+To test the server as a whole, you must have a separate terminal session running where ```python manage.py runserver``` has already been executed so that selenium tests load the webpages as expected.
+
 To run the SynthesizePDF tests, at the moment, do nothing. The feature for synthesizing PDFs is not specifically tested without significantly redoing the codebase, so testing is done by ```runserver``` with ```manage.py``` instead of ```tests.py```.
 
 To test with PDF, have available a PDF file that can be a syllabus where the appropriate fields can be extracted using pre-filled fields - running ```
