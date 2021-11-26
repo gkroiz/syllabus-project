@@ -24,4 +24,4 @@ class EditProfileForm(forms.ModelForm):
 
         for index in range(int(extra_fields)):
             # generate extra fields in the number specified via extra_fields
-            self.fields['office_hour_field_{index}'.format(index=index + 1)] = forms.CharField()
+            self.fields['office_hour_field_{index}'.format(index=index + 1)] = forms.CharField(max_length=100)

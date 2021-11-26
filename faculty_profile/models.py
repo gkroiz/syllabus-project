@@ -6,6 +6,6 @@ from django.db import models
 # model: Faculty
 # attributes: ID, name, email, office phone, office location, office hours
 class Profile(models.Model):
-    ID = models.CharField(max_length=200, primary_key=True)
-    location = models.CharField(max_length=200, default='None')
+    ID = models.CharField(max_length=50, primary_key=True)
+    location = models.CharField(max_length=100, default='None')
     phone = models.CharField(max_length=20, default='+1 (000) 000-0000')
