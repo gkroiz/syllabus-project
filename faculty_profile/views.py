@@ -14,14 +14,18 @@ def index(request, user_id):
 def edit(request, user_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = EditProfileForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/add/')
+        form = EditProfileForm(request.POST, extra=request.POST.get('extra_field_count'), use_required_attribute=False)
+        if 'add' in request.POST:
+            print('you pressed add button')
+            print('count: ' + str(request.POST.get('extra_field_count')))
+            return render(request, 'faculty_profile/edit.html', {'form': form, 'user_id': user_id})
+        if 'submit' in request.POST:
+            print('you pressed submit button')
+            if form.is_valid():
+                form = form.save()
+                print("valid!")
+                print(form.fields)
+                return redirect(reverse('faculty_profile:index', kwargs={'user_id': user_id}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
