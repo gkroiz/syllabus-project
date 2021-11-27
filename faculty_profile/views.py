@@ -9,7 +9,16 @@ from .forms import EditProfileForm
 def index(request, user_id):
     profiles = Profile.objects.filter()
 
-    return render(request, 'faculty_profile/index.html', context={'profiles': profiles, 'user_id': user_id})
+    no_profile = True
+    for profile in profiles:
+        if user_id == profile.ID:
+            no_profile = False
+            break
+
+    if no_profile:
+        return HttpResponseNotFound('<h1>Profile not found</h1>')
+    else:
+        return render(request, 'faculty_profile/index.html', context={'profile': profile, 'user_id': user_id})
 
 
 def edit(request, user_id):
