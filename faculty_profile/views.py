@@ -16,7 +16,7 @@ def index(request, user_id):
             break
 
     if no_profile:
-        return HttpResponseNotFound('<h1>Profile not found</h1>')
+        return render(request, 'faculty_profile/no_profile.html', context={'user_id': user_id})
     else:
         return render(request, 'faculty_profile/index.html', context={'profile': profile, 'user_id': user_id})
 
