@@ -20,9 +20,9 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, password):
+    def create_superuser(self, email , password):
         user = self.create_user(
-            email=self.normalize_email(email),
+            email,
             password=password,
 
         )
@@ -45,7 +45,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=30)
     username = None
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = []
 
 
     objects = MyAccountManager()
