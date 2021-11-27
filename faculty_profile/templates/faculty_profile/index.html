@@ -31,10 +31,14 @@
     <a href="{% url 'faculty_profile:edit' user_id %}">Profile Modifier</a> <br>
 
     <br><br><br>
-    <li> Faculty ID: {{ profile.ID }} </li>
-    <li> Office Location: {{ profile.location }} </li>
-    <li> Office Phone: {{ profile.phone }} </li>
-    <br/>
+    {% for profile in profiles %}
+    {% if user_id == profile.ID %}
+        <li> Faculty ID: {{ profile.ID }} </li>
+        <li> Office Location: {{ profile.location }} </li>
+        <li> Office Phone: {{ profile.phone }} </li>
+        <br/>
+    {% endif %}
+    {% endfor %}
 
 </div>
 
