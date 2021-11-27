@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -8,7 +8,17 @@ from .forms import EditProfileForm
 
 def index(request, user_id):
     profiles = Profile.objects.filter()
-    return render(request, 'faculty_profile/index.html', context={'profiles': profiles, 'user_id': user_id})
+
+    no_profile = True
+    for profile in profiles:
+        if user_id == profile.ID:
+            no_profile = False
+            break
+
+    if no_profile:
+        return HttpResponseNotFound('<h1>Profile not found</h1>')
+    else:
+        return render(request, 'faculty_profile/index.html', context={'profile': profile, 'user_id': user_id})
 
 
 def edit(request, user_id):
@@ -22,9 +32,9 @@ def edit(request, user_id):
         if 'submit' in request.POST:
             print('you pressed submit button')
             if form.is_valid():
-                form = form.save()
                 print("valid!")
-                print(form.fields)
+                print(form.get_fields())
+                form = form.save()
                 return redirect(reverse('faculty_profile:index', kwargs={'user_id': user_id}))
 
     # if a GET (or any other method) we'll create a blank form
