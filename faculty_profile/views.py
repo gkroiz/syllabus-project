@@ -34,8 +34,10 @@ def edit(request, user_id):
             if form.is_valid():
                 print("valid!")
                 print(form.get_fields())
+
                 form = form.save()
-                return redirect(reverse('faculty_profile:index', kwargs={'user_id': user_id}))
+
+                return redirect(reverse('faculty_profile:index', kwargs={'user_id': request.POST.get('ID')}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
