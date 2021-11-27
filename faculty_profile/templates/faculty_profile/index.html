@@ -31,14 +31,22 @@
     <a href="{% url 'faculty_profile:edit' user_id %}">Profile Modifier</a> <br>
 
     <br><br><br>
-    {% for profile in profiles %}
-    {% if user_id == profile.ID %}
-        <li> Faculty ID: {{ profile.ID }} </li>
-        <li> Office Location: {{ profile.location }} </li>
-        <li> Office Phone: {{ profile.phone }} </li>
-        <br/>
-    {% endif %}
-    {% endfor %}
+    {% load index_extras %}
+    {% with True as flag %}
+        {% for profile in profiles %}
+            {% if user_id == profile.ID %}
+                <li> Faculty ID: {{ profile.ID }} </li>
+                <li> Office Location: {{ profile.location }} </li>
+                <li> Office Phone: {{ profile.phone }} </li>
+                <br/>
+                {% update_variable False as flag %}
+            {% endif %}
+        {% endfor %}
+
+        {% if flag == True %}
+            <h4> No Faculty Profile Exists </h4>
+        {% endif %}
+    {% endwith %}
 
 </div>
 
