@@ -48,16 +48,3 @@ def edit(request, user_id):
 
 def syllabus(request, user_id):
     return HttpResponse('View will be connected to the syllabus app later')
-
-
-def add(request, user_id):
-    # if ID from form POST is the same as an ID that is already in the database, the existing entry will be modified
-    # if ID is new, a new entry will be created
-    profile_id = request.POST['ID']
-    location = request.POST['location']
-    phone = request.POST['phone']
-    hours = request.POST['hours']
-    profile_obj = Profile(ID=profile_id, location=location, phone=phone, hours=hours)
-    profile_obj.save()
-
-    return redirect(reverse('faculty_profile:index', kwargs={'user_id': user_id}))
