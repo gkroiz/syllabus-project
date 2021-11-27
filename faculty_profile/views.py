@@ -15,6 +15,8 @@ def index(request, user_id):
             no_profile = False
             break
 
+    # create another if statement to see if the user is authorized to edit the profile or
+    # should be redirected to a template that cannot edit the profile
     if no_profile:
         return render(request, 'faculty_profile/no_profile.html', context={'user_id': user_id})
     else:
