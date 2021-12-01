@@ -74,4 +74,4 @@ def add(request):
                             makeup_policy=syllabus_data['makeup_policy']
                             )
     new_syllabus.save()
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('synthesizew:index'))
