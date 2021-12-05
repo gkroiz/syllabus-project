@@ -3,8 +3,8 @@ from django.db import models
 
 # Create your models here.
 
-# model: Faculty
-# attributes: ID, name, email, office phone, office location, office hours
+# model: Faculty Profile
+# attributes: ID, name, email, office phone, office location
 class Profile(models.Model):
     ID = models.CharField(max_length=50, primary_key=True)
     location = models.CharField(max_length=100, default='None')
