@@ -29,18 +29,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INSTALLED_APPS = [
 
-    'backend.apps.BackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'synthesizew',
     'login',
     'syllabus_form',
     'reportlab',
+    'dept_info',
     'faculty_profile.apps.FacultyProfileConfig',
     'homepage.apps.HomepageConfig',
+    'formtools',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

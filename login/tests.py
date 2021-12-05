@@ -45,7 +45,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
 
     # test just filling in the default boxes and submitting
     def testSignupform(self):
-        selenium = webdriver.Chrome('/Users/deepmistry/bin/chromedriver')
+        selenium = webdriver.Chrome('chromedriver')
         # Goes to signup page
         selenium.get('http://127.0.0.1:8000/login/signup')
 
@@ -69,7 +69,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         time.sleep(5)
 
     def testLoginForm(self):
-        selenium = webdriver.Chrome('/Users/deepmistry/bin/chromedriver')
+        selenium = webdriver.Chrome('chromedriver')
         # Goes to signup page
         selenium.get('http://127.0.0.1:8000/login')
 
@@ -84,7 +84,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         time.sleep(5)
 
     def testForgotPasswordForm(self):
-        selenium = webdriver.Chrome('/Users/deepmistry/bin/chromedriver')
+        selenium = webdriver.Chrome('chromedriver')
         # Goes to signup page
         selenium.get('http://127.0.0.1:8000/login/password_reset')
 
