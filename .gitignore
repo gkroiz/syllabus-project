@@ -141,6 +141,7 @@ cython_debug/
 
 # syllabi files
 syllabi_upload/*
+!syllabi_upload/
 syllabus.pdf
 
 # files to ignore for easier project migration
