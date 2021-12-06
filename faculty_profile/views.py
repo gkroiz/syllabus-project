@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from faculty_profile.models import Profile
+from faculty_profile.models import Profile, OfficeHours
 from .forms import EditProfileForm
 
 
@@ -11,7 +11,9 @@ def index(request, user_id):
 
     no_profile = True
     for profile in profiles:
-        if user_id == profile.ID:
+        # if corresponding user is found, retrieve office hours and change flag
+        if user_id == profile.faculty_id:
+            office_hours = OfficeHours.objects.filter(faculty_id=user_id)
             no_profile = False
             break
 
@@ -20,7 +22,9 @@ def index(request, user_id):
     if no_profile:
         return render(request, 'faculty_profile/no_profile.html', context={'user_id': user_id})
     else:
-        return render(request, 'faculty_profile/index.html', context={'profile': profile, 'user_id': user_id})
+        return render(request, 'faculty_profile/index.html', context={'profile': profile,
+                                                                      'office_hours': office_hours,
+                                                                      'user_id': user_id})
 
 
 def edit(request, user_id):
@@ -35,11 +39,25 @@ def edit(request, user_id):
             print('you pressed submit button')
             if form.is_valid():
                 print("valid!")
-                print(form.get_fields())
 
+                # get a list of extra fields
+                fields_not_wanted = ['faculty_id', 'location', 'phone', 'extra_field_count']
+                fields_given = list(form.get_fields().keys())
+                extra_fields = list(set(fields_not_wanted) ^ set(fields_given))
+
+                # save faculty profile
                 form = form.save()
 
-                return redirect(reverse('faculty_profile:index', kwargs={'user_id': request.POST.get('ID')}))
+                # find and select the corresponding profile
+                profile = list(Profile.objects.filter(faculty_id=request.POST.get('faculty_id')))[0]
+
+                # save extra fields (office hours)
+                for i in range(len(extra_fields)):
+                    hours_given = request.POST.get(extra_fields[i])
+                    office_hour = OfficeHours.objects.create(faculty_id=profile, date_time=hours_given)
+                    office_hour.save()
+
+                return redirect(reverse('faculty_profile:index', kwargs={'user_id': request.POST.get('faculty_id')}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
