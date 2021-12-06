@@ -27,6 +27,11 @@
     <li> Office Location: {{ profile.location }} </li>
     <li> Office Phone: {{ profile.phone }} </li>
 
+    <ol>
+    {% for hour in office_hours %}
+    <li>{{ hour.date_time }}</li>
+    {% endfor %}
+    </ol>
     <br>
     <h4>To Edit or Create a Syllabus: </h4>
     <a href="{% url 'faculty_profile:syllabus' user_id %}">Syllabus Modifier</a> <br><br>
