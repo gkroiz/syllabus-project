@@ -13,7 +13,7 @@ def index(request, user_id):
     for profile in profiles:
         # if corresponding user is found, retrieve office hours and change flag
         if user_id == profile.faculty_id:
-            office_hours = OfficeHours.objects.filter(faculty_id=user_id)
+            office_hours = OfficeHours.objects.filter(faculty=user_id)
             no_profile = False
             break
 
@@ -54,7 +54,7 @@ def edit(request, user_id):
                 # save extra fields (office hours)
                 for i in range(len(extra_fields)):
                     hours_given = request.POST.get(extra_fields[i])
-                    office_hour = OfficeHours.objects.create(faculty_id=profile, date_time=hours_given)
+                    office_hour = OfficeHours.objects.create(faculty=profile, date_time=hours_given)
                     office_hour.save()
 
                 return redirect(reverse('faculty_profile:index', kwargs={'user_id': request.POST.get('faculty_id')}))
