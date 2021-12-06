@@ -62,6 +62,10 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=password)
             #login(request, account)
+            user_type = form.cleaned_data.get('user_type')
+            if(user_type == 'dept'):
+                return redirect('/dept_info')
+
             return redirect('login:login')
         else:
             context['registration_form'] = form

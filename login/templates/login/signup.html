@@ -107,6 +107,12 @@
 			<label for="floatingInput">Last Name</label>
 		</div>
 
+	  <select class="form-floating" name="user_type" id="user_type">
+			<option value="student">Student</option>
+		  	<option value="faculty">Faculty</option>
+		  	<option value="dept">Department</option>
+	  </select>
+
 	  	{% for field in registration_form %}
             <p>
                 {% if field.help_text %}
