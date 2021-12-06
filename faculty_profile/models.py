@@ -15,7 +15,6 @@ class Profile(models.Model):
 
 
 class OfficeHours(models.Model):
-    id = models.BigIntegerField(primary_key=True)
     faculty_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     date_time = models.CharField(max_length=100)
 
