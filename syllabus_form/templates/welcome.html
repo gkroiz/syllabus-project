@@ -1,6 +1,7 @@
-{% load i18n %}
-{% load crispy_forms_tags %}
-<html>
+<!DOCTYPE html>
+<!doctype html>{% load static %}
+
+<html lang="en">
 <head>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -25,37 +26,28 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-8">
-          <h1 class="mt-2"><b>Syllabus Wizard </b> Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</h1>
-
+          <h1 class="mt-2"><b>Syllabus Wizard </b></h1>
           <hr class="mt-0 mb-4">
-            <p> Please put each course objective on a new line, or write the course objectives as a single paragraph.
-            </p>
-            <div class="form-group">
-            <form action="" method="post">
-            {% csrf_token %}
-            {{ wizard.management_form }}
-            {% if wizard.form.forms %}
-                {{ wizard.form.management_form }}
-                {% for form in wizard.form.forms %}
+          <p class="text-left">If you would like to import data from an existing syllabus, please enter the course below</p>
+        <div class="form-group">
+            <form method="post" action="">
+                {% csrf_token %}
+                {% comment %} {% for form in forms %} {% endcomment %}
                 
+                {% comment %} {{ form.as_p }} {% endcomment %}
+
+                {% comment %} {% endfor %} {% endcomment %}
                 {{ form.as_p }}
+                {% comment %} </br> {% endcomment %}
+                <button type="submit" class="btn btn-outline-secondary" name="search" id="search">Search for existing syllabi</button>   
+                <button type="submit" class="btn btn-outline-secondary" name="goto" formnovalidate id="goto">Go directly to Wizard</button>   
 
-                {% endfor %}
-            {% else %}
-                {{ wizard.form }}
-            {% endif %}
-            </br>
-            <hr class="mt-0 mb-4">
-            {% if wizard.steps.prev %}
-            <button id="first" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate class="btn btn-outline-secondary">{% trans "first step" %}</button>
-            <button id="prev" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate class="btn btn-outline-secondary">{% trans "prev step" %}</button>
-            {% endif %}
-            <button id="submit" type="submit" value="{% trans "submit" %}" class="btn btn-outline-secondary">{% trans "next step" %}</button>
-            {% comment %} </form> {% endcomment %}
-            </div>
-
+            </form>
         </div>
-      </div>
+        {% comment %} <div style="margin-left: 50%; height: 1000px;">  {% endcomment %}
+            {% comment %} <iframe src='https://pdfjs-express.s3-us-west-2.amazonaws.com/docs/choosing-a-pdf-viewer.pdf' width="100%" height="100%"> {% endcomment %}
+            {% comment %} </iframe> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
     </div>
-  </body>
-</html>
+    </div>
+</body>

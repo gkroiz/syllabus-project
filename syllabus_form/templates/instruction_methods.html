@@ -28,7 +28,7 @@
           <h1 class="mt-2"><b>Syllabus Wizard </b> Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</h1>
 
           <hr class="mt-0 mb-4">
-            <p> Please put each course objective on a new line, or write the course objectives as a single paragraph.
+            <p> Describe the instruction method of the course. In other words, how the course will be taught, whether it is in-person, online, or some alternative.
             </p>
             <div class="form-group">
             <form action="" method="post">
@@ -51,7 +51,7 @@
             <button id="prev" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate class="btn btn-outline-secondary">{% trans "prev step" %}</button>
             {% endif %}
             <button id="submit" type="submit" value="{% trans "submit" %}" class="btn btn-outline-secondary">{% trans "next step" %}</button>
-            {% comment %} </form> {% endcomment %}
+            </form>
             </div>
 
         </div>

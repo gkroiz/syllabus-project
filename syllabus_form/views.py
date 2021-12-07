@@ -1,3 +1,4 @@
+from re import M, search
 from django import forms
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -12,16 +13,18 @@ from django.http import FileResponse, Http404
 
 from django.shortcuts import render
 from django.shortcuts import redirect
-from formtools.wizard.views import SessionWizardView
+from formtools.wizard.views import SessionWizardView, WizardView
 
-from .forms import CourseForm1, CourseForm2, CourseForm3, CourseForm4, CourseForm5, CourseForm6
+from .forms import WelcomeForm
+
+from synthesizew.models import Syllabus
 
 TEMPLATES = {"1": "wizard.html",
              "2": "wizard.html",
              "3": "times.html",
              "4": "wizard.html",
              "5": "course_obj.html",
-             "6": "wizard.html",
+             "6": "instruction_methods.html",
              "7": "wizard.html",
              "8": "wizard.html",
              "9": "wizard.html",
@@ -31,26 +34,158 @@ TEMPLATES = {"1": "wizard.html",
              "13": "wizard.html",
              "14": "wizard.html",
              "15": "wizard.html",
-             "16": "wizard.html",
-             "17": "wizard.html",
+             "16": "schedule.html",
+             "17": "check.html",
             }
 
+#views for the wizard welcome page
+def wizardWelcome(request):
+    form = WelcomeForm(request.POST or None)
 
+    if request.method == 'POST':
+        #if you want to go directly to wizard without importing syllabus
+        if "goto" in request.POST:
+            initial_dict = {}
+            request.session['initial'] = initial_dict
+            return HttpResponseRedirect('wizard')
+        #if you want to go to wizard with syllabus
+        if "yes" in request.POST:
+
+            #getting wanted values from syllabus
+            course = request.session.get('course_name')
+            search_results = Syllabus.objects.filter(title__contains=course)
+            instructor_name = search_results.values('instructor_name')[0].get('instructor_name')
+            course_name = search_results.values('title')[0].get('title')
+            instructor_email = search_results.values('instructor_email')[0].get('instructor_email')
+            office_hours = search_results.values('office_hours')[0].get('office_hours')
+            instructor_phone = search_results.values('instructor_phone')[0].get('instructor_phone')
+            course_time = search_results.values('course_time')[0].get('course_time')
+            textbook = search_results.values('textbook')[0].get('textbook')
+            course_description = search_results.values('course_description')[0].get('course_description')
+            prereqs = search_results.values('prereqs')[0].get('prereqs')
+            course_obj = search_results.values('course_objectives')[0].get('course_objectives')
+            instruction_method = search_results.values('instruct_methods')[0].get('instruct_methods')
+            attendance = search_results.values('attendance_rule')[0].get('attendance_rule')
+            class_preparation = search_results.values('class_preparation')[0].get('class_preparation')
+            course_requirements = search_results.values('course_requirements')[0].get('course_requirements')
+            grade_apportionment = search_results.values('grade_breakdown')[0].get('grade_breakdown')
+            quizzes = search_results.values('quizzes')[0].get('quizzes')
+            exams = search_results.values('exams')[0].get('exams')
+            projects = search_results.values('prog_assignments')[0].get('prog_assignments')
+            participation = search_results.values('participation')[0].get('participation')
+            hands_on = search_results.values('hands_on')[0].get('hands_on')
+            assignments = search_results.values('assignments')[0].get('assignments')
+            homework = search_results.values('homework')[0].get('homework')
+            late_policy = search_results.values('late_policy')[0].get('late_policy')
+            makeup_policy = search_results.values('makeup_policy')[0].get('makeup_policy')
+
+            grade_descriptions = ''
+            if (quizzes != ''):
+                grade_descriptions = grade_descriptions + 'Quizzes: ' + quizzes
+            if (exams != ''):
+                grade_descriptions = grade_descriptions + '\n\nExams: ' + exams
+            if (projects != ''):
+                grade_descriptions = grade_descriptions + '\n\nProjects: ' + projects
+            if (participation != ''):
+                grade_descriptions = grade_descriptions + '\n\nParticipation: ' + participation
+            if (hands_on != ''):
+                grade_descriptions = grade_descriptions + '\n\nHands On: ' + hands_on
+            if (assignments != ''):
+                grade_descriptions = grade_descriptions + '\n\nAssignments: ' + assignments
+            if (homework != ''):
+                grade_descriptions = grade_descriptions + '\n\nHomeworks: ' + homework
+            
+            #creating an initial dictionary to have pre-filled values
+            initial_dict = {'1': {'course_number': course.split(' ')[1], 'course_name':course_name, 'course_acronym': course.split(' ')[0]},
+                '2': {'instructor_name':instructor_name, 'instructor_phone':instructor_phone, 'instructor_email':instructor_email, 'instructor_fax':'', 'instructor_website':'', 'instructor_course_delivery_site':'', 'instructor_office_hours':office_hours},
+                '3':{'meeting_times':course_time},
+                '4':{'textbook':textbook, 'course_description':course_description, 'prerequisites':prereqs},
+                '5':{'course_objectives':course_obj},
+                '6':{'instruction_method':instruction_method},
+                '7':{'attendance_participation': attendance},
+                '8':{'class_pre_and_student_success':class_preparation},
+                '9':{'course_requirements':course_requirements},
+                '11':{},
+                '12':{'due_dates':late_policy},
+                '13':{'make_up_policy': makeup_policy},
+                '14':{},
+                '15':{},
+                '16':{},
+                '17':{}
+                }
+            if grade_descriptions != '':
+                initial_dict['10'] = {'grade_apportionment':grade_apportionment, 'descriptions': grade_descriptions}
+            else:
+                initial_dict['10'] = {'grade_apportionment':grade_apportionment}
+            request.session['initial'] = initial_dict
+            return HttpResponseRedirect('wizard')
+
+        #if you want to search for another syllabus
+        if "no" in request.POST:
+            return render(request, 'welcome.html', {'form': form})
+
+        #search for syllabus
+        if "search" in request.POST:
+            course_name = request.POST.get('course')
+            if course_name == '':
+                return render(request, 'welcome.html', {'form': form})
+ 
+            search_results = Syllabus.objects.filter(title__contains=course_name)
+            if search_results:
+                request.session['course_name'] = course_name
+                return render(request, 'welcome_yes.html', {'form': form, 'course_name': course_name})
+            else:
+                return render(request, 'welcome_no.html', {'course_name': course_name})
+
+    return render(request, 'welcome.html', {'form': form})
+
+
+FORMS = [('1', forms.CourseForm1),
+         ('2', forms.CourseForm2),
+         ('3', forms.CourseForm3),
+         ('4', forms.CourseForm4),
+         ('5', forms.CourseForm5),
+         ('6', forms.CourseForm6),
+         ('7', forms.CourseForm7),
+         ('8', forms.CourseForm8),
+         ('9', forms.CourseForm9),
+         ('10', forms.CourseForm10),
+         ('11', forms.CourseForm11),
+         ('12', forms.CourseForm12),
+         ('13', forms.CourseForm13),
+         ('14', forms.CourseForm14),
+         ('15', forms.CourseForm15),
+         ('16', forms.CourseForm16Full),
+         ('17', forms.CourseForm17),
+         ]
+#wizard, which goes through each form
 class Wizard(SessionWizardView):
-
     form_list = []
     for i in range(17):
-        form_list.append(exec(f'forms.CourseForm{i+1}'))
+        if i == 15:
+            form_list.append(exec(f'forms.CourseForm16Full'))
+        else:
+            form_list.append(exec(f'forms.CourseForm{i+1}'))
     def get_next_step(self, step=None):
         return self.request.POST.get('wizard_next_step', super().get_next_step(step))
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
-    def done(self, form_list, **kwargs):
+
+    def done(self, form_list, form_dict, **kwargs):
         createPDF2(form_list)
         try:
             return FileResponse(open('syllabus.pdf', 'rb'), content_type='application/pdf')
         except FileNotFoundError:
             raise Http404()
+    def get_form_initial(self, step):
+        if self.request.session.get('initial') != None:
+            initial = self.request.session.get('initial')
+            return initial.get(step,{})
+    def get_form(self, step=None, data=None, files=None):
+
+        return super().get_form(step=step, data=data, files=files)
+
+
 
 ################ python to create pdf ###################
 from reportlab.pdfgen.canvas import Canvas
@@ -58,14 +193,16 @@ from reportlab.lib.units import inch, cm
 from reportlab.lib.pagesizes import LETTER
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_CENTER, TA_RIGHT
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 
 def createPDF2(form):
-    print(form)
-    doc = SimpleDocTemplate("syllabus.pdf",pagesize=letter,
+    course_acronym = form[0].cleaned_data['course_acronym']
+    course_number = form[0].cleaned_data['course_number']
+
+    doc = SimpleDocTemplate("syllabus_form/syllabus_pdfs/" + course_acronym + course_number + "-syllabus.pdf",pagesize=letter,
                             rightMargin=inch,leftMargin=inch,
                             topMargin=inch,bottomMargin=inch)
 
@@ -152,8 +289,6 @@ def createPDF2(form):
                                 spaceShrinkage=0.05,
                                 ))
 
-    print('in creator')
-    print(form[1])
 
     indent = ' &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp'
 
@@ -210,6 +345,8 @@ def createPDF2(form):
     #need to add grading split, and description about each portion of the grade split
     grade_apportionment = form[9].cleaned_data['grade_apportionment']
 
+    grade_descriptions = form[9].cleaned_data['descriptions']
+
     #from CourseForm11
     grading_standards = form[10].cleaned_data['grading_standards']
 
@@ -223,11 +360,7 @@ def createPDF2(form):
     academic_integrity = form[13].cleaned_data['academic_integrity']
 
     #from CourseForm15
-    accomodations = form[14].cleaned_data['accomodations']
-
-    #from CourseForm16
-    #needs to be worked on
-    course_schedule = form[15].cleaned_data['course_schedule']
+    accommodations = form[14].cleaned_data['accommodations']
 
     #from CourseForm17
     inclement_weather = form[16].cleaned_data['inclement_weather']
@@ -335,6 +468,13 @@ def createPDF2(form):
     Story.append(Paragraph('', styles['Department_Info']))
     Story.append(Paragraph('', styles['Department_Info']))
 
+    grade_descriptions_split = grade_descriptions.split('\r\n\r\n')
+    for i in range(len(grade_descriptions_split)):
+        grade_type = grade_descriptions_split[i].split(':')[0]
+        Story.append(Paragraph('<b><u>' + grade_type + ':</u></b>' + grade_descriptions_split[i].split(':')[1], styles['paragraph_text']))
+        Story.append(Paragraph('', styles['Department_Info']))
+        Story.append(Paragraph('', styles['Department_Info']))
+
     #grading standards
     Story.append(Paragraph('<b><u>Grading Standards:</u></b> ' + grading_standards, styles['paragraph_text']))
 
@@ -359,14 +499,39 @@ def createPDF2(form):
     Story.append(Paragraph('', styles['Department_Info']))
     Story.append(Paragraph('', styles['Department_Info']))
 
-    #accomodations
-    Story.append(Paragraph('<b><u>Accessibility and Disability Accomodations, Guidance and Resources:</u></b> ' + accomodations, styles['paragraph_text']))
+    #accommodations
+    Story.append(Paragraph('<b><u>Accessibility and Disability accommodations, Guidance and Resources:</u></b> ' + accommodations, styles['paragraph_text']))
 
     Story.append(Paragraph('', styles['Department_Info']))
     Story.append(Paragraph('', styles['Department_Info']))
 
     #schedule
-    Story.append(Paragraph('<b><u>Course Schedule:</u></b> ' + course_schedule, styles['paragraph_text']))
+    #needs to be worked on
+    table = []
+    if form[15].cleaned_data['lecture0'] != '':
+        table.append(['Week', 'Material', 'Due'])
+        for index in range(16):
+            row = []
+            if (form[15].cleaned_data['lecture{index}'.format(index=index)] != ''):
+                row.append(form[15].cleaned_data['lecture{index}'.format(index=index)])
+                row.append(form[15].cleaned_data['material{index}'.format(index=index)])
+                row.append(form[15].cleaned_data['due{index}'.format(index=index)])
+            else:
+                break
+            table.append(row)
+        schedule=Table(table,3*[2.15*inch], len(table)*[0.25*inch])
+
+        schedule.setStyle(TableStyle([('ALIGN',(0,0),(-1,-1),'CENTER'),
+        ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+        ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+        ('FONTNAME', (0,0), (-1,0), 'Helvetica-Bold')
+        ]))
+
+        Story.append(Paragraph('<b><u>Course Schedule:</u></b> ', styles['paragraph_text']))
+
+        Story.append(Paragraph('', styles['Department_Info']))
+
+        Story.append(schedule)
 
     Story.append(Paragraph('', styles['Department_Info']))
     Story.append(Paragraph('', styles['Department_Info']))
