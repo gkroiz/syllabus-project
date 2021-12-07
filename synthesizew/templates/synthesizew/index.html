@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <form action="{% url 'add' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'synthesizew:add' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            Please upload your syllabus file in PDF. Any format besides PDF will be rejected.</br>
-            <input type="file" name="pdf_file" accept="application/pdf"></br>
+            Please upload your syllabus file in PDF. Any format besides PDF will be rejected.<br>
+            <input type="file" name="pdf_file" accept="application/pdf"><br>
             <input type="submit">
         </form>
     </div>
