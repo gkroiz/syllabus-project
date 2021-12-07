@@ -23,17 +23,26 @@ def index(request, user_id):
             no_profile = False
             break
 
-    # if there is no user logged in
-    if not logged_in and no_profile:
+    # if there is NO user logged in and they are visiting a profile that DOES NOT exist
+    if logged_in is False and no_profile:
         return render(request, 'faculty_profile/no_login_no_profile.html', context={'user_id': user_id})
+    # if there is NO user logged in and they are visiting a profile that DOES exist
     elif not logged_in:
         return render(request, 'faculty_profile/no_login.html', context={'profile': profile,
                                                                          'office_hours': office_hours,
                                                                          'user_id': user_id})
-    # if there is a user logged in but they don't have a profile
+    # if the logged in user is not visiting their own profile and the profile they're visiting DOES NOT exist
+    elif user_id != logged_in and no_profile:
+        return render(request, 'faculty_profile/not_ur_profile_no_profile.html', context={'user_id': user_id})
+    # if the logged in user is not visiting their own profile, but the profile they're visiting exists
+    elif user_id != logged_in:
+        return render(request, 'faculty_profile/not_ur_profile.html', context={'profile': profile,
+                                                                               'office_hours': office_hours,
+                                                                               'user_id': user_id})
+    # if the logged in user is visiting their own profile but they haven't created a profile yet
     elif no_profile:
         return render(request, 'faculty_profile/no_profile.html', context={'user_id': user_id})
-    # if there is a user logged in with a profile
+    # if the logged user is on their own created profile
     else:
         return render(request, 'faculty_profile/index.html', context={'profile': profile,
                                                                       'office_hours': office_hours,
