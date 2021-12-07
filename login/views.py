@@ -7,9 +7,9 @@ from django.http import BadHeaderError, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
 
 from .forms import AccountAuthenticationForm, UserCreationForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
@@ -57,6 +57,7 @@ def signup(request):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=password)
+
             #login(request, account)
             user_type = form.cleaned_data.get('user_type')
             # Department page
@@ -68,9 +69,7 @@ def signup(request):
                 return redirect('/')
 
             # Faculty page
-            return redirect('faculty_profile:index')
-
-            # return redirect('login:login')
+            return redirect('login:login')
         else:
             context['registration_form'] = form
     else:  # Get request
@@ -83,7 +82,8 @@ def login_view(request):
     context = {}
     user = request.user
     if user.is_authenticated:
-        return redirect('faculty_profile:index')
+        user_id = user.email.split('@')[0]
+        return redirect(reverse('faculty_profile:index', kwargs={'user_id': user_id}))
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
         if form.is_valid():
@@ -102,7 +102,10 @@ def login_view(request):
                     return redirect('faculty_profile:index')
 
                 # Faculty page
-                return redirect('faculty_profile:index')
+                user_id = user.email.split('@')[0]
+                return redirect(reverse('faculty_profile:index', kwargs={'user_id': user_id}))
+   
+
     else:
         form = AccountAuthenticationForm()
     context['login_form'] = form
@@ -113,4 +116,3 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('homepage:index')
-

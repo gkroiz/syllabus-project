@@ -1,0 +1,37 @@
+.editProfile{
+    width: 30%;
+    max-width: 800px;
+    padding: 90px;
+    margin-left: 550px;
+    margin-top: 150px;
+    background: #ffc107;
+    border-radius: 10px;
+}
+p{
+    font-size: xxx-large;
+}
+.button{
+    margin-bottom: 10px;
+    background-color: black;
+    border-color: black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 50%;
+    padding: .3rem 1rem;
+    font-size: 1.10rem;
+    border-radius: 15px;
+    cursor: pointer;
+    text-transform: none;
+    box-sizing: border-box;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-style: outset;
+    border-right-style: outset;
+    border-bottom-style: outset;
+    border-left-style: outset;
+    margin-left:20px;
+}
