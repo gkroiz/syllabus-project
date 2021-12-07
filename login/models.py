@@ -5,6 +5,12 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 
+# Constant for the types of users (actual value, human readable name)
+USER_TYPE = (
+    ('student', 'Student'),
+    ('faculty', 'Faculty'),
+    ('dept', 'Department')
+)
 
 # Create your models here.
 class MyAccountManager(BaseUserManager):
@@ -35,7 +41,8 @@ class MyAccountManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    username = models.CharField(max_length=30, unique=True,default="")
+    username = models.CharField(max_length=30, unique=True, default="")
+    user_type = models.CharField(max_length=10, choices=USER_TYPE, default='student')
 
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

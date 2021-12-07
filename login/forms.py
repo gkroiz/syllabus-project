@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from login.models import CustomUser
 
+
 class AccountAuthenticationForm(forms.ModelForm):
 
 	password = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -20,10 +21,11 @@ class AccountAuthenticationForm(forms.ModelForm):
 			if not authenticate(email=email, password=password):
 				raise forms.ValidationError("Invalid login")
 
+
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=60)
 
     class Meta:
         model = CustomUser
-        fields = ('email','first_name','last_name','password1','password2')
+        fields = ('email','first_name','last_name','user_type','password1','password2')
 

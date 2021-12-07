@@ -15,11 +15,7 @@ from .forms import AccountAuthenticationForm, UserCreationForm, RegistrationForm
 from django.contrib.auth import authenticate, login, logout
 
 
-
 # Create your views here.
-
-
-
 def password_reset_request(request):
     from django.contrib.auth import get_user_model
     User = get_user_model()
@@ -62,7 +58,19 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=password)
             #login(request, account)
-            return redirect('login:login')
+            user_type = form.cleaned_data.get('user_type')
+            # Department page
+            if user_type == 'dept':
+                return redirect('/dept_info')
+
+            # Student page -> Not implemented
+            elif user_type == 'student':
+                return redirect('/')
+
+            # Faculty page
+            return redirect('faculty_profile:index')
+
+            # return redirect('login:login')
         else:
             context['registration_form'] = form
     else:  # Get request
@@ -74,7 +82,6 @@ def signup(request):
 def login_view(request):
     context = {}
     user = request.user
-
     if user.is_authenticated:
         return redirect('faculty_profile:index')
     if request.POST:
@@ -86,6 +93,15 @@ def login_view(request):
 
             if user:
                 login(request, user)
+                user_type = user.user_type
+                if user_type == 'dept':
+                    return redirect('/dept_info')
+
+                # Student page -> Not implemented
+                elif user_type == 'student':
+                    return redirect('faculty_profile:index')
+
+                # Faculty page
                 return redirect('faculty_profile:index')
     else:
         form = AccountAuthenticationForm()
