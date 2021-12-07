@@ -24,6 +24,9 @@
 <div class="welcome">
     Welcome Department Head
 </div>
+<div class="container text-end">
+    <a href="{% url 'login:logout_view' %}">Log Out</a>
+</div>
 <div class="info_box">
     Enter department information here:
     <form action="/dept_info/" method="post">
