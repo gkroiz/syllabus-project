@@ -4,7 +4,8 @@ from selenium.webdriver import Keys
 from django.test import TestCase
 from django.test import LiveServerTestCase
 import time
-#EXE_PATH = 'C:/Users/Eddie/Downloads/chromedriver_win32/chromedriver.exe'
+
+
 # Test for URL routes and Views
 class ViewTests(TestCase):
 
@@ -32,4 +33,16 @@ class DepartmentSeleniumTests(LiveServerTestCase):
 
         # tests if you can add items
         dept.send_keys("Did you ever hear the tragedy of Darth Plagueis The Wise?")
+
+        button = selenium.find_element_by_name('Update')
+        button.click()
+        self.assertEqual(selenium.current_url, 'http://127.0.0.1:8000/dept_info/submitted')
+
+    def test_go_back(self):
+        selenium = webdriver.Chrome('chromedriver')
+        selenium.get('http://127.0.0.1:8000/dept_info/submitted')
+        button = selenium.find_element_by_name('go_back')
+        button.click()
+        self.assertEqual(selenium.current_url, 'http://127.0.0.1:8000/dept_info/')
+
 

@@ -17,7 +17,8 @@
 
         <div class="text-end">
 
-		    <a href="{% url 'login:login' %}" class="btn btn-warning">Login</a>
+		    <a href="{% url 'login:login' %}" class="btn btn-outline-light me-2">Login</a>
+			<a href="{% url 'homepage:index' %}" class="btn btn-warning">Home</a>
         </div>
       </div>
     </div>
@@ -44,6 +45,12 @@
 		  	<input type="input" name="last_name" class="form-control" id="floatingLastName" placeholder="Doe">
 			<label for="floatingInput">Last Name</label>
 		</div>
+
+	  <select class="form-floating" name="user_type" id="user_type">
+			<option value="student">Student</option>
+		  	<option value="faculty">Faculty</option>
+		  	<option value="dept">Department</option>
+	  </select>
 
 	  	{% for field in registration_form %}
             <p>

@@ -7,9 +7,9 @@ class EditProfileForm(forms.ModelForm):
         model = Profile
         fields = '__all__'
 
-    faculty_id = forms.CharField(label='Enter a Faculty ID (before the @ in your UMBC email address:', max_length=200)
-    location = forms.CharField(label='Enter an Office Location:', max_length=200)
-    phone = forms.CharField(label='Enter an Office Phone Number:', max_length=20)
+    faculty_id = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Faculty ID (front of your UMBC email)', 'style': 'width: 350px;', 'class': 'form-control'}))
+    location = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 350px;', 'class': 'form-control'}))
+    phone = forms.CharField(widget=forms.TextInput(attrs={ 'style': 'width: 350px;', 'class': 'form-control'}))
     extra_field_count = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
