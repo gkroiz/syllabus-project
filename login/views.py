@@ -94,15 +94,16 @@ def login_view(request):
             if user:
                 login(request, user)
                 user_type = user.user_type
+                user_id = user.email.split('@')[0]
+
                 if user_type == 'dept':
                     return redirect('/dept_info')
 
                 # Student page -> Not implemented
                 elif user_type == 'student':
-                    return redirect('faculty_profile:index')
+                    return redirect(reverse('faculty_profile:index', kwargs={'user_id': 'student_id'}))
 
                 # Faculty page
-                user_id = user.email.split('@')[0]
                 return redirect(reverse('faculty_profile:index', kwargs={'user_id': user_id}))
    
 

@@ -42,6 +42,15 @@
               {{ profile.phone }}
             </div>
           </li>
+          <li class="d-flex gap-4">
+            <svg class="bi text-warning flex-shrink-0" width="68" height="68"><use xlink:href="#bookmark-star"/></svg>
+            <div>
+              <h5 class="mb-0">Office Hours:</h5>
+              {% for hour in office_hours %}
+                {{ hour.date_time }} <br>
+              {% endfor %}
+            </div>
+          </li>
         </ul>
         <a href="{% url 'faculty_profile:edit' user_id %}" class="btn btn-warning mt-6 w-100 mx-50">Profile Modifier</a>
           <br>
@@ -52,45 +61,6 @@
     </div>
   </div>
 </div>
-<!--
-<div class="container my-auto">
-     <div class="row">
-         <div class="col text-center">
-             Account: {{ user.email }}
-         </div>
-         <div class="col text-center">
-             <a href="{% url 'homepage:index' %}">Home</a>
-         </div>
-         <div class="col text-center">
-            <a href="{% url 'login:logout_view' %}">Log Out</a>
-             <a href="{% url 'homepage:index' %}" class="btn btn-warning">Home</a>
-         </div>
-     </div>
-</div>
-<div class="container text-center">
-
-    <br><br>
-    <h2><i>Faculty Profile: </i></h2>
-    <li> Faculty ID: {{ profile.ID }} </li>
-    <li> Office Location: {{ profile.location }} </li>
-    <li> Office Phone: {{ profile.phone }} </li>
-    <li> Office Hours: </li>
-
-
-    {% for hour in office_hours %}
-    {{ hour.date_time }} <br>
-    {% endfor %}
-
-    <br>
-    <h4>To Edit or Create a Syllabus: </h4>
-    <a href="{% url 'faculty_profile:syllabus' user_id %}">Syllabus Modifier</a> <br><br>
-
-    <h4>To Edit your Profile: </h4>
-    <a href="{% url 'faculty_profile:edit' user_id %}">Profile Modifier</a> <br>
-
-</div>
--->
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
