@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 from . import forms
 
-
+app_name = 'syllabus_form'
 FORMS = [('1', forms.CourseForm1),
          ('2', forms.CourseForm2),
          ('3', forms.CourseForm3),
@@ -29,6 +29,6 @@ FORMS = [('1', forms.CourseForm1),
 urlpatterns = [
     path('wizard/', views.Wizard.as_view(FORMS,)),
     path('wizard/', views.Wizard),
-    path('', views.wizardWelcome)
+    path('', views.wizardWelcome, name='wizardWelcome')
 ]
 
