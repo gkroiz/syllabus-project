@@ -7,6 +7,12 @@ from .forms import EditProfileForm
 
 
 def index(request, user_id):
+    # get the id of the logged in user if a user is logged in
+    logged_in = False
+    user = request.user
+    if user.is_authenticated:
+        logged_in = user.email.split('@')[0]
+
     profiles = Profile.objects.filter()
 
     no_profile = True
@@ -17,12 +23,17 @@ def index(request, user_id):
             no_profile = False
             break
 
-    #print('current user is', user.email)
-
-    # create another if statement to see if the user is authorized to edit the profile or
-    # should be redirected to a template that cannot edit the profile
-    if no_profile:
+    # if there is no user logged in
+    if not logged_in and no_profile:
+        return render(request, 'faculty_profile/no_login_no_profile.html', context={'user_id': user_id})
+    elif not logged_in:
+        return render(request, 'faculty_profile/no_login.html', context={'profile': profile,
+                                                                         'office_hours': office_hours,
+                                                                         'user_id': user_id})
+    # if there is a user logged in but they don't have a profile
+    elif no_profile:
         return render(request, 'faculty_profile/no_profile.html', context={'user_id': user_id})
+    # if there is a user logged in with a profile
     else:
         return render(request, 'faculty_profile/index.html', context={'profile': profile,
                                                                       'office_hours': office_hours,
