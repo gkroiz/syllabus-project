@@ -68,6 +68,19 @@
      </div>
 </div>
 <div class="container text-center">
+
+    <br><br>
+    <h2><i>Faculty Profile: </i></h2>
+    <li> Faculty ID: {{ profile.ID }} </li>
+    <li> Office Location: {{ profile.location }} </li>
+    <li> Office Phone: {{ profile.phone }} </li>
+    <li> Office Hours: </li>
+
+
+    {% for hour in office_hours %}
+    {{ hour.date_time }} <br>
+    {% endfor %}
+
     <br>
     <h4>To Edit or Create a Syllabus: </h4>
     <a href="{% url 'faculty_profile:syllabus' user_id %}">Syllabus Modifier</a> <br><br>
@@ -75,11 +88,6 @@
     <h4>To Edit your Profile: </h4>
     <a href="{% url 'faculty_profile:edit' user_id %}">Profile Modifier</a> <br>
 
-    <br><br><br>
-    <li> Faculty ID: {{ profile.ID }} </li>
-    <li> Office Location: {{ profile.location }} </li>
-    <li> Office Phone: {{ profile.phone }} </li>
-    <br/>
 </div>
 -->
 

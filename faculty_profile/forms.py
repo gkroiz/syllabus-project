@@ -7,13 +7,9 @@ class EditProfileForm(forms.ModelForm):
         model = Profile
         fields = '__all__'
 
-    #ID = forms.CharField(label='Enter an ID:', max_length=200)
-    ID = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 350px;', 'class': 'form-control'}))
+    faculty_id = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Faculty ID (front of your UMBC email)', 'style': 'width: 350px;', 'class': 'form-control'}))
     location = forms.CharField(widget=forms.TextInput(attrs={'style': 'width: 350px;', 'class': 'form-control'}))
     phone = forms.CharField(widget=forms.TextInput(attrs={ 'style': 'width: 350px;', 'class': 'form-control'}))
-
-    #location = forms.CharField(label='Enter an Office Location:', max_length=200)
-    #phone = forms.CharField(label='Enter an Office Phone Number:', max_length=20)
     extra_field_count = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
@@ -31,4 +27,4 @@ class EditProfileForm(forms.ModelForm):
             self.fields['office_hour_field_{index}'.format(index=index + 1)] = forms.CharField(max_length=100)
 
     def get_fields(self):
-        print(self.fields)
+        return self.fields
