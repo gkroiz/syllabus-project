@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!doctype html>{% load static %}
-<html>
+
+<html lang="en">
 <head>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -21,3 +22,38 @@
       </div>
     </div>
   </header>
+<body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2"><b>Syllabus Wizard </b></h1>
+          <hr class="mt-0 mb-4">
+        <p>Found syllabus for {{course_name}}. Would you like to import the course data into the wizard? This information can always be changed later.</p>
+        <div class="form-group">
+<form method="post" action=".">
+{% csrf_token %}
+<button type="submit" class="btn btn-outline-secondary" name="yes" id="yes">Yes, import the syllabus data</button>   
+<button type="submit" class="btn btn-outline-secondary" name="no" id="no">No, search for another syllabus</button>   
+</form>  
+</div>
+</div>
+</div>
+</body>
+</br></br>
+
+
+
+<body>
+<div style="width: 100%;">
+        <div class="form-group">
+            {% comment %} <form method="post" action="."> {% endcomment %}
+                {% comment %} {% csrf_token %} {% endcomment %}
+                {% comment %} {{ form.as_p }} {% endcomment %}
+                {% comment %} <button type="submit" class="btn btn-success btn-sm" name="search" id="search">Search for existing syllabi</button>    {% endcomment %}
+                {% comment %} <button type="submit" class="btn btn-success btn-sm" name="goto" id="goto">Go to Wizard</button>    {% endcomment %}
+
+            {% comment %} </form> {% endcomment %}
+        </div>
+    </div>
+    </div>
+</body>
