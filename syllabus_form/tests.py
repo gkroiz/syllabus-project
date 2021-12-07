@@ -3,6 +3,8 @@ from django.test import TestCase
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+# import Alert 
+from selenium.webdriver.common.alert import Alert
 import time
 
 # Create your tests here.
@@ -20,7 +22,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
 
     #test form wizard with schedule
     def testFormWizardSchedule(self):
-        selenium = webdriver.Chrome(executable_path='/Users/gersonkroiz/Downloads/chromedriver')
+        selenium = webdriver.Chrome(executable_path='chromedriver')
 
         #choose url to use
         selenium.get('http://127.0.0.1:8000/syllabus_form/wizard')
@@ -365,17 +367,18 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         #find elements for page 17/17
         inclement_weather = selenium.find_element_by_id('id_17-inclement_weather')
 
-        submit = selenium.find_element_by_id('submit')
+        submit = selenium.find_element_by_xpath("//input[@type='submit']")
 
         #populate the form with data for page 17/17
         inclement_weather.send_keys('Any work or test due on a class date that has been canceled due to inclement weather will be due the next class meeting.'\
             ' (If the semester\'s last exam is postponed, it will be given during the time period assigned during the University\'s official Final Exam week.')
 
         time.sleep(2) 
-
-        #submit page 17/17
+        #submit page and accept confirmation pop-up 17/17
         submit.send_keys(Keys.RETURN)
-
+        time.sleep(2)
+        popup = selenium.switch_to.alert
+        popup.accept()
         time.sleep(20)
 
     #test that the button that sends the wizard back to the first step works
@@ -501,7 +504,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
 
     #test that the welcome for the wizard works
     def testWelcomePage(self):
-        selenium = webdriver.Chrome(executable_path='/Users/gersonkroiz/Downloads/chromedriver')
+        selenium = webdriver.Chrome(executable_path='chromedriver')
 
         #choose url to use
         #first import syllabus
@@ -511,8 +514,9 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         pdf_file = selenium.find_element_by_xpath("//input[@type='file']")
         submit = selenium.find_element_by_xpath("//input[@type='submit']")
         #need a syllabus to upload
-        # pdf_file.send_keys('./syllabus_form/syllabus_pdfs/IS147-Section01-AhmedAlEroud-Syllabus.pdf')
-        pdf_file.send_keys('/Users/gersonkroiz/CMSC_447/syllabus-project/syllabus_form/syllabus_pdfs/IS147-Section01-AhmedAlEroud-Syllabus.pdf')
+
+        #you may need absolute path here rather than temporal path
+        pdf_file.send_keys('syllabus_form/syllabus_pdfs/IS147-Section01-AhmedAlEroud-Syllabus.pdf')
         #submit pdf
         submit.send_keys(Keys.RETURN)
 
@@ -941,20 +945,23 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         #find elements for page 17/17
         inclement_weather = selenium.find_element_by_id('id_17-inclement_weather')
 
-        submit = selenium.find_element_by_id('submit')
+        submit = selenium.find_element_by_xpath("//input[@type='submit']")
         time.sleep(2) 
 
         #populate the form with data for page 17/17
         inclement_weather.send_keys('Any work or test due on a class date that has been canceled due to inclement weather will be due the next class meeting.'\
             ' (If the semester\'s last exam is postponed, it will be given during the time period assigned during the University\'s official Final Exam week.')
 
-
-        #submit page 17/17
+        #submit page and accept confirmation pop-up 17/17
         submit.send_keys(Keys.RETURN)
+        time.sleep(2)
+        popup = selenium.switch_to.alert
+        popup.accept()
+        time.sleep(20)
 
   #test that the welcome for the wizard work by not importing data and going directly to wizard
     def testWelcomePageNoImport(self):
-        selenium = webdriver.Chrome(executable_path='/Users/gersonkroiz/Downloads/chromedriver')
+        selenium = webdriver.Chrome(executable_path='chromedriver')
 
         #choose url to use
         selenium.get('http://127.0.0.1:8000/syllabus_form/')

@@ -6,7 +6,7 @@ class WelcomeForm(forms.Form):
     course = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ex: CMSC 101'}), label='', max_length=100, required=False)
 
 #department info
-class CourseForm1(forms.ModelForm):
+class CourseForm1(forms.Form):
     department = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}), label='Department', max_length=200)#, attrs={'class': 'form-control'})
     department_office = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ex: Room ITE 404'}), label='Department Office')
     department_phone = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ex: 111-111-1111'}), label='Department Phone')

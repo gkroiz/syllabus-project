@@ -35,7 +35,7 @@ TEMPLATES = {"1": "wizard.html",
              "14": "wizard.html",
              "15": "wizard.html",
              "16": "schedule.html",
-             "17": "wizard.html",
+             "17": "check.html",
             }
 
 #views for the wizard welcome page
@@ -45,6 +45,8 @@ def wizardWelcome(request):
     if request.method == 'POST':
         #if you want to go directly to wizard without importing syllabus
         if "goto" in request.POST:
+            initial_dict = {}
+            request.session['initial'] = initial_dict
             return HttpResponseRedirect('wizard')
         #if you want to go to wizard with syllabus
         if "yes" in request.POST:
