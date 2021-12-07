@@ -27,6 +27,7 @@ urlpatterns = [
     path('profile/', include('faculty_profile.urls')),
     path('dept_info/', include('dept_info.urls')),
     path('add/', include('synthesizew.urls')),
+    path('search/', include('lookup.urls')),
 
     # Needed for password reset. ONLY WORKS IF THEY ARE IN THE PROJECT URL AND NOT IN APP URL
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='login/password_reset/password_reset_done.html'), name='password_reset_done'),

@@ -56,6 +56,7 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         password1 = selenium.find_element_by_name('password1')
         password2 = selenium.find_element_by_name('password2')
         submit = selenium.find_element_by_tag_name('button')
+        dropdown = selenium.find_element_by_name('user_type')
 
         # adds the value in fields
         email.send_keys("user@umbc.edu")
@@ -64,9 +65,15 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         password1.send_keys("Password@1")
         password2.send_keys("Password@1")
 
+        # selects the department
+        for option in dropdown.find_elements_by_tag_name('option'):
+            if option.text == 'Faculty':
+                option.click()
+
         time.sleep(5)
         submit.send_keys(Keys.RETURN)
         time.sleep(5)
+
 
     def testLoginForm(self):
         selenium = webdriver.Chrome('/Users/deepmistry/bin/chromedriver')
@@ -95,4 +102,14 @@ class CourseFormSeleniumTests(LiveServerTestCase):
         time.sleep(5)
         submit.send_keys(Keys.RETURN)
         time.sleep(5)
+
+    def testDropDown(self):
+        selenium = webdriver.Chrome('chromedriver')
+        selenium.get('http://127.0.0.1:8000/login/signup')
+        dropdown = selenium.find_element_by_name('user_type')
+        self.assertTrue(dropdown.is_displayed())
+        # selects the department
+        for option in dropdown.find_elements_by_tag_name('option'):
+            if option.text == 'Department':
+                option.click()
 

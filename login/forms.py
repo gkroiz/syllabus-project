@@ -21,9 +21,11 @@ class AccountAuthenticationForm(forms.ModelForm):
                 raise forms.ValidationError("Invalid login")
 
 
+
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=60)
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('email','first_name','last_name','user_type','password1','password2')
+
