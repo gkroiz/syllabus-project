@@ -16,8 +16,6 @@ from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
-
-
 def password_reset_request(request):
     from django.contrib.auth import get_user_model
     User = get_user_model()
