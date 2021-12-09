@@ -19,14 +19,42 @@
             }
         }
     </script>
+
+    <header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <img src="">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <h3>UMBC Syllabus Synthesizer </h3>
+        </ul>
+
+        <div class="text-end">
+
+		    <a href="{% url 'homepage:index' %}" class="btn btn-warning">Home</a>
+        </div>
+      </div>
+    </div>
+  </header>
 </head>
 <body>
-    <div class="container text-center">
-        <h2>Syllabus Search</h2>
-        <a href="/">Home</a>
-        <br>
-    </div>
+    <style>
+        body {
+        height: 100%;
+        align-items: center;
+    }
+
+    .lookup {
+        width: 30%;
+        max-width: 800px;
+        padding: 90px;
+        margin-left: 600px;
+        margin-top: 150px;
+        background: #ffc107;
+        border-radius: 10px;
+    }
+    </style>
     <br><br>
+    <main class="lookup">
     <div class="container text-left">
         <form action="{% url 'lookup:results' %}" method="get">
             <div>Search by: </div>
@@ -48,7 +76,9 @@
             {% empty %}
             <div>No matches found!</div>
         {% endfor %}
+
     </div>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" />
 </body>
 </html>
