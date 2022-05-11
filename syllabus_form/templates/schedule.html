@@ -1,0 +1,80 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" >
+          <h3 >UMBC Syllabus Synthesizer </h3>
+        </ul>
+
+        <div class="text-end">
+            <a href="{% url 'login:logout_view' %}" class="btn btn-outline-light me-2">Logout</a>
+            <a href="{% url 'homepage:index' %}" class="btn btn-warning">Home</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2"><b>Syllabus Wizard </b> Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</h1>
+          <hr class="mt-0 mb-4">
+            <p> Below is the schedule. If you do not wish to include a schedule, please leave these boxes blank. If your course does not take 16 weeks, you can leave boxes blank. There is a 50 character limit for each box.</p>
+
+            <p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Week 
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            &nbsp &nbsp &nbsp &nbsp &nbsp Matieral Covered 
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            Assignments Due </br></p>
+            
+            <div class="form-group">
+            <form action="" method="post">
+            <div class="row">
+            {% csrf_token %}
+            {{ wizard.management_form }}
+
+            {% comment %} {% if wizard.form.forms %} {% endcomment %}
+                {% comment %} {{ wizard.form.management_form }} {% endcomment %}
+                {% comment %} {% for form in wizard.form.forms %} {% endcomment %}
+                {% comment %} <div class="row-sm-3"> {% endcomment %}
+                {% comment %} <div class="col"> {% endcomment %}
+                {% comment %} {{ form }} {% endcomment %}
+                {% comment %} </div>  {% endcomment %}
+                {% comment %} </div> {% endcomment %}
+                {% comment %} {% endfor %}/ {% endcomment %}
+            {% comment %} {% else %}             {% endcomment %}
+            {% for field in wizard.form  %}
+            <div class="row-sm-2">
+            <div class="col">
+            {{ field }}
+            </div> 
+            </div>
+            </br>
+            </br>
+            {% endfor %}
+            </div>  
+            {% comment %} {% endif %} {% endcomment %}
+            </br>
+            <hr class="mt-0 mb-4">
+            {% if wizard.steps.prev %}
+            <button id="first" name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" formnovalidate class="btn btn-outline-secondary">{% trans "first step" %}</button>
+            <button id="prev" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate class="btn btn-outline-secondary">{% trans "prev step" %}</button>
+            {% endif %}
+            <button id="submit" type="submit" value="{% trans "submit" %}" class="btn btn-outline-secondary">{% trans "next step" %}</button>
+            </div>
+            </form>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
